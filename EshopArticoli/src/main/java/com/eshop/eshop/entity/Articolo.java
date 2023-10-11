@@ -16,8 +16,7 @@ public class Articolo {
 
     public Articolo(){}
 
-    public Articolo(int articoloId, String name, String details, double price) {
-        this.articoloId = articoloId;
+    public Articolo(String name, String details, double price) {
         this.name = name;
         this.details = details;
         this.price = price;
