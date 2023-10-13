@@ -5,7 +5,7 @@ import com.eshop.eshop.models.ItemEntity;
 
 public class ItemConverter {
 
-    public ItemEntity itemDtoToitem(ItemDto itemDto) {
+    public static ItemEntity itemDtoToitem(ItemDto itemDto) {
         ItemEntity item = new ItemEntity();
         item.setName(itemDto.getName());
         item.setDetails(itemDto.getDetails());
@@ -14,7 +14,7 @@ public class ItemConverter {
         return item;
     }
 
-    public ItemDto itemToItemDto(ItemEntity item) {
+    public static ItemDto itemToItemDto(ItemEntity item) {
         ItemDto itemDto = new ItemDto();
         itemDto.setName(item.getName());
         itemDto.setDetails(item.getDetails());
