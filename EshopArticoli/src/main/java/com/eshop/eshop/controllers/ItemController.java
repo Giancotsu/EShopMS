@@ -1,5 +1,6 @@
 package com.eshop.eshop.controllers;
 
+import com.eshop.eshop.dto.ItemDto;
 import com.eshop.eshop.models.ItemEntity;
 import com.eshop.eshop.service.ItemService;
 import org.springframework.http.HttpStatus;
@@ -31,8 +32,8 @@ public class ItemController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ItemEntity> createItem(@RequestBody ItemEntity item){
-
+    public ResponseEntity<ItemDto> createItem(@RequestBody ItemDto itemDto){
+        return new ResponseEntity<>(itemService.createItem(itemDto), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "${id}/update")
