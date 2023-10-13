@@ -6,12 +6,19 @@ import com.eshop.eshop.models.ItemEntity;
 import com.eshop.eshop.repository.ItemRepository;
 import com.eshop.eshop.service.ItemService;
 
+import java.util.List;
+
 public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
 
     public ItemServiceImpl(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
+    }
+
+    @Override
+    public List<ItemEntity> getAllItems() {
+        return itemRepository.findAll();
     }
 
     @Override
