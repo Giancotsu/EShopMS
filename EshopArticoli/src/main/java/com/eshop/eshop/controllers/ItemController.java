@@ -1,6 +1,7 @@
 package com.eshop.eshop.controllers;
 
-import com.eshop.eshop.models.Item;
+import com.eshop.eshop.models.ItemEntity;
+import com.eshop.eshop.service.ItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,23 +19,23 @@ public class ItemController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Item>> getAllItems(){
+    public ResponseEntity<List<ItemEntity>> getAllItems(){
 
     }
 
     @GetMapping(value = "${id}")
-    public ResponseEntity<Item> getItemById(@PathVariable long id){
+    public ResponseEntity<ItemEntity> getItemById(@PathVariable long id){
 
     }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Item> createItem(@RequestBody Item item){
+    public ResponseEntity<ItemEntity> createItem(@RequestBody ItemEntity item){
 
     }
 
     @PutMapping(value = "${id}/update")
-    public ResponseEntity<Item> updateItem(@RequestBody Item item, @PathVariable long id){
+    public ResponseEntity<ItemEntity> updateItem(@RequestBody ItemEntity item, @PathVariable long id){
 
 
     }
