@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
 
-    List<Item> findByDetailsLike(String details, Pageable);
+    List<Item> findByDetailsLike(String details, Pageable pageable);
 
     @Query(value = "SELECT * FROM ITEM WHERE DETAILS LIKE :details", nativeQuery = true)
     List<Item> selByDetailsLike(@Param("details") String details);
