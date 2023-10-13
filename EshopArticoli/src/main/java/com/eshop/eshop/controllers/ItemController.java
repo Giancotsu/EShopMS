@@ -20,7 +20,8 @@ public class ItemController {
 
     @GetMapping
     public ResponseEntity<List<ItemEntity>> getAllItems(){
-
+        List<ItemEntity> items = itemService.getAllItems();
+        return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
     @GetMapping(value = "${id}")
