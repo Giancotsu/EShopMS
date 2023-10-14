@@ -1,7 +1,6 @@
 package com.eshop.eshop.controllers;
 
 import com.eshop.eshop.dto.ItemDto;
-import com.eshop.eshop.models.ItemEntity;
 import com.eshop.eshop.service.ItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,9 +36,8 @@ public class ItemController {
     }
 
     @PutMapping(value = "/{id}/update")
-    public ResponseEntity<ItemEntity> updateItem(@RequestBody ItemEntity item, @PathVariable("id") long id){
-
-        return null;
+    public ResponseEntity<ItemDto> updateItem(@RequestBody ItemDto itemDto, @PathVariable("id") long id){
+        return new ResponseEntity<>(itemService.updateItem(itemDto, id), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}/delete")
