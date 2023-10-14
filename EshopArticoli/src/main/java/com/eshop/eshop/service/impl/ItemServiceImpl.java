@@ -1,6 +1,7 @@
 package com.eshop.eshop.service.impl;
 
 import com.eshop.eshop.dto.ItemDto;
+import com.eshop.eshop.dto.ItemResponse;
 import com.eshop.eshop.dto.converter.ItemConverter;
 import com.eshop.eshop.exceptions.ItemNotFoundException;
 import com.eshop.eshop.models.ItemEntity;
@@ -24,7 +25,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemDto> getAllItems(int pageNumber, int pageSize) {
+    public ItemResponse getAllItems(int pageNumber, int pageSize) {
 
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
@@ -37,7 +38,15 @@ public class ItemServiceImpl implements ItemService {
             itemsDto.add(ItemConverter.itemToItemDto(item));
         }
 
-        return itemsDto;
+        ItemResponse itemResponse = new ItemResponse();
+        itemResponse.setContent(itemsDto);
+        itemResponse.setPageNumber(items.getNumber());
+        itemResponse.setPageSize(items.getSize());
+        itemResponse.setTotalElements(items.getTotalElements());
+        itemResponse.setTotalPages(items.getTotalPages());
+        itemResponse.setLast(items.isLast());
+
+        return itemResponse;
     }
 
     @Override

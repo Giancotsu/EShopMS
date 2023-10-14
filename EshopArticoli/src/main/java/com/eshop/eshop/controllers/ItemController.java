@@ -1,12 +1,11 @@
 package com.eshop.eshop.controllers;
 
 import com.eshop.eshop.dto.ItemDto;
+import com.eshop.eshop.dto.ItemResponse;
 import com.eshop.eshop.service.ItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/item")
@@ -19,12 +18,13 @@ public class ItemController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ItemDto>> getAllItems(
+    public ResponseEntity<ItemResponse> getAllItems(
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
     ){
-        List<ItemDto> items = itemService.getAllItems(pageNumber, pageSize);
-        return new ResponseEntity<>(items, HttpStatus.OK);
+        //List<ItemDto> items = itemService.getAllItems(pageNumber, pageSize);
+        ItemResponse itemResponse = itemService.getAllItems(pageNumber, pageSize);
+        return new ResponseEntity<>(itemResponse, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
