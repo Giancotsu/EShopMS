@@ -67,6 +67,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void deleteItemById(long id) {
-        //ItemEntity item = itemRepository.findById()
+        ItemEntity item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be deleted"));
+        itemRepository.delete(item);
     }
 }
