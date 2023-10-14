@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/item/")
+@RequestMapping(value = "/api/item")
 public class ItemController {
 
     private final ItemService itemService;
@@ -25,9 +25,9 @@ public class ItemController {
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
-    @GetMapping(value = "${id}")
-    public ResponseEntity<ItemEntity> getItemById(@PathVariable long id){
-
+    @GetMapping(value = "/{id}/")
+    public ResponseEntity<ItemEntity> getItemById(@PathVariable("id") long id){
+        return null;
     }
 
     @PostMapping()
@@ -36,15 +36,15 @@ public class ItemController {
         return new ResponseEntity<>(itemService.createItem(itemDto), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "${id}/update")
-    public ResponseEntity<ItemEntity> updateItem(@RequestBody ItemEntity item, @PathVariable long id){
+    @PutMapping(value = "/{id}/update")
+    public ResponseEntity<ItemEntity> updateItem(@RequestBody ItemEntity item, @PathVariable("id") long id){
 
-
+        return null;
     }
 
-    @DeleteMapping(value = "${id}/delete")
-    public ResponseEntity<String> deleteItem(@PathVariable long id){
+    @DeleteMapping(value = "/{id}/delete")
+    public ResponseEntity<String> deleteItem(@PathVariable("id") long id){
 
-
+        return null;
     }
 }
