@@ -19,8 +19,11 @@ public class ItemController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ItemDto>> getAllItems(){
-        List<ItemDto> items = itemService.getAllItems();
+    public ResponseEntity<List<ItemDto>> getAllItems(
+            @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
+    ){
+        List<ItemDto> items = itemService.getAllItems(pageNumber, pageSize);
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
 

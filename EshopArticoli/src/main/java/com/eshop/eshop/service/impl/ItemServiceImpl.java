@@ -6,6 +6,9 @@ import com.eshop.eshop.exceptions.ItemNotFoundException;
 import com.eshop.eshop.models.ItemEntity;
 import com.eshop.eshop.repository.ItemRepository;
 import com.eshop.eshop.service.ItemService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,12 +24,16 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemDto> getAllItems() {
+    public List<ItemDto> getAllItems(int pageNumber, int pageSize) {
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+
+        Page<ItemEntity> items = itemRepository.findAll(pageable);
+        List<ItemEntity> listOfItem = items.getContent();
 
         List<ItemDto> itemsDto = new ArrayList<>();
-        List<ItemEntity> items = itemRepository.findAll();
 
-        for(ItemEntity item: items){
+        for(ItemEntity item: listOfItem){
             itemsDto.add(ItemConverter.itemToItemDto(item));
         }
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ItemService {
 
-    List<ItemDto> getAllItems();
+    List<ItemDto> getAllItems(int pageNumber, int pageSize);
     ItemDto getItemById(long id);
     ItemDto createItem(ItemDto itemDto);
     ItemDto updateItem(ItemDto itemDto, long id);
