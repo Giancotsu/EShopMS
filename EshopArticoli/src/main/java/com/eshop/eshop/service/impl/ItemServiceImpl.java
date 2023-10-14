@@ -48,4 +48,19 @@ public class ItemServiceImpl implements ItemService {
 
         return ItemConverter.itemToItemDto(newItem);
     }
+
+    @Override
+    public ItemDto updateItem(ItemDto itemDto, long id) {
+        ItemEntity item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be updated"));
+
+        item = ItemConverter.itemDtoToitem(itemDto);
+
+        ItemEntity updatedItem = itemRepository.save(item);
+
+        if(updatedItem.getItemId() != id){
+            throw new ItemNotFoundException("Item could not be updated");
+        }
+
+        return ItemConverter.itemToItemDto(updatedItem);
+    }
 }
