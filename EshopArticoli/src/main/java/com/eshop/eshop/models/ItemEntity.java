@@ -1,14 +1,15 @@
 package com.eshop.eshop.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Builder;
 
 @Entity(name = "ITEM")
-@Builder
 public class ItemEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long itemId;
     private String name;
     private String details;
