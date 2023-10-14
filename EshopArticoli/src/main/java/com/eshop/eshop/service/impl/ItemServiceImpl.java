@@ -51,16 +51,22 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemDto updateItem(ItemDto itemDto, long id) {
-        ItemEntity item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be updated"));
 
-        item = ItemConverter.itemDtoToitem(itemDto);
+        itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be updated"));
 
-        ItemEntity updatedItem = itemRepository.save(item);
-
-        if(updatedItem.getItemId() != id){
+        if(itemDto.getId() != id){
             throw new ItemNotFoundException("Item could not be updated");
         }
 
+        ItemEntity item = ItemConverter.itemDtoToitem(itemDto);
+
+        ItemEntity updatedItem = itemRepository.save(item);
+
         return ItemConverter.itemToItemDto(updatedItem);
+    }
+
+    @Override
+    public void deleteItemById(long id) {
+        //ItemEntity item = itemRepository.findById()
     }
 }
