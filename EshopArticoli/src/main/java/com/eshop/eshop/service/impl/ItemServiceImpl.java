@@ -5,10 +5,12 @@ import com.eshop.eshop.dto.converter.ItemConverter;
 import com.eshop.eshop.models.ItemEntity;
 import com.eshop.eshop.repository.ItemRepository;
 import com.eshop.eshop.service.ItemService;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
