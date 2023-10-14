@@ -25,9 +25,9 @@ public class ItemController {
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}/")
-    public ResponseEntity<ItemEntity> getItemById(@PathVariable("id") long id){
-        return null;
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ItemDto> getItemById(@PathVariable("id") long id){
+        return new ResponseEntity<>(itemService.getItemById(id), HttpStatus.OK);
     }
 
     @PostMapping()
