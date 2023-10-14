@@ -6,6 +6,7 @@ import com.eshop.eshop.models.ItemEntity;
 import com.eshop.eshop.repository.ItemRepository;
 import com.eshop.eshop.service.ItemService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemServiceImpl implements ItemService {
@@ -17,8 +18,16 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemEntity> getAllItems() {
-        return itemRepository.findAll();
+    public List<ItemDto> getAllItems() {
+
+        List<ItemDto> itemsDto = new ArrayList<>();
+        List<ItemEntity> items = itemRepository.findAll();
+
+        for(ItemEntity item: items){
+            itemsDto.add(ItemConverter.itemToItemDto(item));
+        }
+
+        return itemsDto;
     }
 
     @Override
