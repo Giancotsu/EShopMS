@@ -2,6 +2,7 @@ package com.eshop.eshop.service.impl;
 
 import com.eshop.eshop.dto.ItemDto;
 import com.eshop.eshop.dto.converter.ItemConverter;
+import com.eshop.eshop.exceptions.ItemNotFoundException;
 import com.eshop.eshop.models.ItemEntity;
 import com.eshop.eshop.repository.ItemRepository;
 import com.eshop.eshop.service.ItemService;
@@ -30,6 +31,12 @@ public class ItemServiceImpl implements ItemService {
         }
 
         return itemsDto;
+    }
+
+    @Override
+    public ItemDto getItemById(long id) {
+        ItemEntity item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be found"));
+        return ItemConverter.itemToItemDto(item);
     }
 
     @Override
