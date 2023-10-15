@@ -1,9 +1,6 @@
 package com.eshop.eshop.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
@@ -17,6 +14,8 @@ public class ItemEntity {
     private String details;
     private BigDecimal price;
 
+    //contructor
+
     public ItemEntity(){}
 
     public ItemEntity(String name, String details, BigDecimal price) {
@@ -24,6 +23,8 @@ public class ItemEntity {
         this.details = details;
         this.price = price;
     }
+
+    //getter & setter
 
     public long getItemId() {
         return itemId;
@@ -56,4 +57,12 @@ public class ItemEntity {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    //relations
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ivaId")
+    private IvaEntity iva;
+
+
 }
