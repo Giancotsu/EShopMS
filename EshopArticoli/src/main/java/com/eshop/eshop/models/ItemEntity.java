@@ -69,5 +69,8 @@ public class ItemEntity {
     @OneToMany(mappedBy = "item")
     private List<BarcodeEntity> barcodes = new ArrayList<>();
 
-
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "itemsCategories", joinColumns = @JoinColumn(name = "itemId", referencedColumnName = "itemId"),
+        inverseJoinColumns = @JoinColumn(name = "categoryId", referencedColumnName = "categoryId"))
+    private List<ItemCategoryEntity> categories = new ArrayList<>();
 }
