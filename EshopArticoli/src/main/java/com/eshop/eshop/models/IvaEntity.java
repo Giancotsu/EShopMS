@@ -1,11 +1,11 @@
 package com.eshop.eshop.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-@Entity
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity(name = "IVA")
 public class IvaEntity {
 
     @Id
@@ -38,4 +38,8 @@ public class IvaEntity {
     public void setIvaValue(int ivaValue) {
         this.ivaValue = ivaValue;
     }
+
+    //relations
+    @OneToMany(mappedBy = "iva", orphanRemoval = false)
+    private List<ItemEntity> items = new ArrayList<>();
 }
