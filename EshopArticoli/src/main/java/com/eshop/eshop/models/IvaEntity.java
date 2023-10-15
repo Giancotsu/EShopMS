@@ -40,6 +40,6 @@ public class IvaEntity {
     }
 
     //relations
-    @OneToMany(mappedBy = "iva", orphanRemoval = false)
+    @OneToMany(mappedBy = "iva", orphanRemoval = false, fetch = FetchType.LAZY)
     private List<ItemEntity> items = new ArrayList<>();
 }

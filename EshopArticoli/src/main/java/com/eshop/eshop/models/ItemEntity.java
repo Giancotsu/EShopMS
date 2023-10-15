@@ -63,10 +63,10 @@ public class ItemEntity {
     //relations
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ivaId")
+    @JoinColumn(name = "ivaId", referencedColumnName = "ivaId")
     private IvaEntity iva;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<BarcodeEntity> barcodes = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

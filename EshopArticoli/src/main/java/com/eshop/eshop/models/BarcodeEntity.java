@@ -40,6 +40,6 @@ public class BarcodeEntity {
 
     //relations
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "itemId")
+    @JoinColumn(name = "itemId", referencedColumnName = "itemId")
     private ItemEntity item;
 }
