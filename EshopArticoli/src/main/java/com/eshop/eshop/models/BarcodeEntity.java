@@ -1,9 +1,6 @@
 package com.eshop.eshop.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity(name = "BARCODE")
 public class BarcodeEntity {
@@ -40,4 +37,9 @@ public class BarcodeEntity {
     public void setBarcode(String barcode) {
         this.barcode = barcode;
     }
+
+    //relations
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "itemId")
+    private ItemEntity item;
 }
