@@ -3,6 +3,8 @@ package com.eshop.eshop.models;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "ITEM")
 public class ItemEntity {
@@ -63,6 +65,9 @@ public class ItemEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ivaId")
     private IvaEntity iva;
+
+    @OneToMany(mappedBy = "item")
+    private List<BarcodeEntity> barcodes = new ArrayList<>();
 
 
 }
