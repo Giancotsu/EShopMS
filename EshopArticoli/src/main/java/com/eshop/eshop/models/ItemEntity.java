@@ -1,5 +1,6 @@
 package com.eshop.eshop.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -66,10 +67,11 @@ public class ItemEntity {
     @JoinColumn(name = "ivaId", referencedColumnName = "ivaId")
     private IvaEntity iva;
 
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<BarcodeEntity> barcodes = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "itemsCategories", joinColumns = @JoinColumn(name = "itemId", referencedColumnName = "itemId"),
         inverseJoinColumns = @JoinColumn(name = "categoryId", referencedColumnName = "categoryId"))
     private List<ItemCategoryEntity> categories = new ArrayList<>();
