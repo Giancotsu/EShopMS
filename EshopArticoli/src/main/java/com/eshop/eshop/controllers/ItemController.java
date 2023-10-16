@@ -22,7 +22,7 @@ public class ItemController {
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
     ){
-        //List<ItemDto> items = itemService.getAllItems(pageNumber, pageSize);
+
         ItemResponse itemResponse = itemService.getAllItems(pageNumber, pageSize);
         return new ResponseEntity<>(itemResponse, HttpStatus.OK);
     }
