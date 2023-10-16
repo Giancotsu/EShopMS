@@ -2,6 +2,7 @@ package com.eshop.eshop.controllers;
 
 import com.eshop.eshop.dto.ItemDto;
 import com.eshop.eshop.dto.ItemResponse;
+import com.eshop.eshop.models.ItemCategoryEntity;
 import com.eshop.eshop.service.ItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,5 +49,11 @@ public class ItemController {
 
         itemService.deleteItemById(id);
         return new ResponseEntity<>("Item deleted", HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/{id}/category")
+    public ResponseEntity<ItemDto> setItemCategory(@PathVariable("id") Long itemId, @RequestBody ItemCategoryEntity category){
+
+        return new ResponseEntity<>(itemService.setItemCategory(itemId, category), HttpStatus.OK);
     }
 }
