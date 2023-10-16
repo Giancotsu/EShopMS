@@ -2,6 +2,7 @@ package com.eshop.eshop.service;
 
 import com.eshop.eshop.dto.ItemDto;
 import com.eshop.eshop.dto.ItemResponse;
+import com.eshop.eshop.models.ItemCategoryEntity;
 
 public interface ItemService {
 
@@ -10,4 +11,6 @@ public interface ItemService {
     ItemDto createItem(ItemDto itemDto);
     ItemDto updateItem(ItemDto itemDto, long id);
     void deleteItemById(long id);
+
+    ItemDto setItemCategory(Long itemId, ItemCategoryEntity category);
 }
