@@ -57,7 +57,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemDto createItem(ItemDto itemDto) {
-        //ItemEntity item = new ItemEntity(itemDto.getName(), itemDto.getDetails(), itemDto.getPrice());
+
         ItemEntity item = ItemConverter.itemDtoToitem(itemDto);
 
         ItemEntity newItem = itemRepository.save(item);
