@@ -28,6 +28,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public CategoryDto getCategoryById(Long id) {
+        categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category could not be found"));
+        return CategoryConverter.categoryEntityToDto(categoryRepository.findById(id).get());
+    }
+
+    @Override
     public CategoryDto getCategoryByName(String name) {
         return null;
     }
