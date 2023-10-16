@@ -4,6 +4,7 @@ import com.eshop.eshop.dto.ItemDto;
 import com.eshop.eshop.dto.ItemResponse;
 import com.eshop.eshop.dto.converter.ItemConverter;
 import com.eshop.eshop.exceptions.ItemNotFoundException;
+import com.eshop.eshop.models.ItemCategoryEntity;
 import com.eshop.eshop.models.ItemEntity;
 import com.eshop.eshop.repository.ItemRepository;
 import com.eshop.eshop.service.ItemService;
@@ -85,5 +86,17 @@ public class ItemServiceImpl implements ItemService {
     public void deleteItemById(long id) {
         ItemEntity item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be deleted"));
         itemRepository.delete(item);
+    }
+
+    @Override
+    public ItemDto setItemCategory(Long itemId, ItemCategoryEntity category) {
+
+        ItemEntity item = itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFoundException("Item not found"));
+
+        List<ItemCategoryEntity> categories = item.getCategories();
+        categories.add(category);
+        item.setCategories(categories);
+
+        return ItemConverter.itemToItemDto(itemRepository.save(item));
     }
 }
