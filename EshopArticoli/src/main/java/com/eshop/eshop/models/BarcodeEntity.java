@@ -1,5 +1,6 @@
 package com.eshop.eshop.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity(name = "BARCODE")
@@ -39,7 +40,8 @@ public class BarcodeEntity {
     }
 
     //relations
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne()
     @JoinColumn(name = "itemId", referencedColumnName = "itemId")
+    @JsonBackReference
     private ItemEntity item;
 }
