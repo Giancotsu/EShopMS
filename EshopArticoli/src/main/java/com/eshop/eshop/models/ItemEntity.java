@@ -62,7 +62,7 @@ public class ItemEntity {
 
     //relations
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ivaId", referencedColumnName = "ivaId")
     private IvaEntity iva;
 
@@ -73,4 +73,28 @@ public class ItemEntity {
     @JoinTable(name = "itemsCategories", joinColumns = @JoinColumn(name = "itemId", referencedColumnName = "itemId"),
         inverseJoinColumns = @JoinColumn(name = "categoryId", referencedColumnName = "categoryId"))
     private List<ItemCategoryEntity> categories = new ArrayList<>();
+
+    public IvaEntity getIva() {
+        return iva;
+    }
+
+    public void setIva(IvaEntity iva) {
+        this.iva = iva;
+    }
+
+    public List<BarcodeEntity> getBarcodes() {
+        return barcodes;
+    }
+
+    public void setBarcodes(List<BarcodeEntity> barcodes) {
+        this.barcodes = barcodes;
+    }
+
+    public List<ItemCategoryEntity> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<ItemCategoryEntity> categories) {
+        this.categories = categories;
+    }
 }
