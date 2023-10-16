@@ -15,4 +15,6 @@ public interface ItemRepository extends PagingAndSortingRepository<ItemEntity, L
 
     @Query(value = "SELECT * FROM ITEM WHERE DETAILS LIKE :details", nativeQuery = true)
     List<ItemEntity> selByDetailsLike(@Param("details") String details);
+
+
 }
