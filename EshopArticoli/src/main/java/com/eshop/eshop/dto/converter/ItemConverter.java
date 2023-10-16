@@ -11,6 +11,8 @@ public class ItemConverter {
         item.setName(itemDto.getName());
         item.setDetails(itemDto.getDetails());
         item.setPrice(itemDto.getPrice());
+        item.setCategories(itemDto.getCategories());
+        item.setIva(itemDto.getIva());
 
         return item;
     }
@@ -21,6 +23,8 @@ public class ItemConverter {
         itemDto.setName(item.getName());
         itemDto.setDetails(item.getDetails());
         itemDto.setPrice(item.getPrice());
+        itemDto.setCategories(item.getCategories());
+        itemDto.setIva(item.getIva());
 
         return itemDto;
     }
