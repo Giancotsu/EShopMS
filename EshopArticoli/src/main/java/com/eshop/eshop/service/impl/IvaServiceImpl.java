@@ -35,6 +35,8 @@ public class IvaServiceImpl implements IvaService {
 
     @Override
     public IvaDto createIva(IvaDto ivaDto) {
-        return null;
+
+        IvaEntity iva = ivaRepository.save(IvaConverter.ivaDtoToEntity(ivaDto));
+        return IvaConverter.ivaEntityToDto(iva);
     }
 }
