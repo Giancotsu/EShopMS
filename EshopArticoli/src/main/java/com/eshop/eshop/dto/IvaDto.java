@@ -5,6 +5,5 @@ import lombok.Data;
 @Data
 public class IvaDto {
 
-
     private int ivaValue;
 }
