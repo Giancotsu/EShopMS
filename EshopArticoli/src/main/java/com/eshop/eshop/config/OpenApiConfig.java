@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
+import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -22,8 +23,17 @@ import org.springframework.context.annotation.Configuration;
                         url = "https://license-site.com"
                 ),
                 termsOfService = "Terms of service"
-
-        )
+        ),
+        servers = {
+                @Server(
+                        description = "Local ENV",
+                        url = "http://localhost:9000"
+                ),
+                @Server(
+                        description = "Prod ENV",
+                        url = "https://example.com"
+                )
+        }
 )
 public class OpenApiConfig {
 }
