@@ -13,6 +13,7 @@ public class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long itemId;
+
     private String name;
     private String details;
     private BigDecimal price;
