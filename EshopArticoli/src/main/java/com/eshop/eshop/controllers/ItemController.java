@@ -4,8 +4,10 @@ import com.eshop.eshop.dto.ItemDto;
 import com.eshop.eshop.dto.ItemResponse;
 import com.eshop.eshop.models.ItemCategoryEntity;
 import com.eshop.eshop.service.ItemService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,7 +45,11 @@ public class ItemController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ItemDto> createItem(@RequestBody ItemDto itemDto){
+    public ResponseEntity<ItemDto> createItem(@Valid @RequestBody ItemDto itemDto, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            throw new RuntimeException("Errore di compilazione");
+        }
         return new ResponseEntity<>(itemService.createItem(itemDto), HttpStatus.CREATED);
     }
 

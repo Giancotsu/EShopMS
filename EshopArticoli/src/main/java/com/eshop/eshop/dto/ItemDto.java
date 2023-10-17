@@ -14,9 +14,11 @@ import java.util.List;
 public class ItemDto {
 
     private long id;
-    @Size(min=3, message="required")
+    @NotNull(message = "required")
+    @Size(min=3, message = "min 3")
     private String name;
-    @Size(min=5, message="required")
+    @NotNull(message = "required")
+    @Size(min=5, message="min 5")
     private String details;
     @NotNull(message = "required")
     @Min(value = 0, message = "min zero")
