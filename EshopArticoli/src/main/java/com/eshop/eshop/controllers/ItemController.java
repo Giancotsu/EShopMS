@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/api/item")
 public class ItemController {
@@ -26,6 +28,12 @@ public class ItemController {
 
         ItemResponse itemResponse = itemService.getAllItems(pageNumber, pageSize);
         return new ResponseEntity<>(itemResponse, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/category/{categoryName}")
+    public ResponseEntity<List<ItemDto>> getItemsByCategory(@PathVariable("categoryName") String categoryName){
+
+        return new ResponseEntity<>(itemService.getItemsByCategory(categoryName), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
