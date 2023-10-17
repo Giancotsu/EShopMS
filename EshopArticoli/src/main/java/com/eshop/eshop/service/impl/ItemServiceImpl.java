@@ -99,4 +99,13 @@ public class ItemServiceImpl implements ItemService {
 
         return ItemConverter.itemToItemDto(itemRepository.save(item));
     }
+
+    @Override
+    public List<ItemDto> getItemsByCategory(String categoryName) {
+
+        String filter = "%" + categoryName.toUpperCase() + "%";
+
+        List<ItemEntity> items = itemRepository.selItemsByCategory(filter);
+        return items.stream().map(ItemConverter::itemToItemDto).toList();
+    }
 }
