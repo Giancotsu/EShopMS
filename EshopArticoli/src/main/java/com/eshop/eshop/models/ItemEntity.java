@@ -72,8 +72,8 @@ public class ItemEntity {
     private List<BarcodeEntity> barcodes = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "itemsCategories", joinColumns = @JoinColumn(name = "itemId", referencedColumnName = "itemId"),
-        inverseJoinColumns = @JoinColumn(name = "categoryId", referencedColumnName = "categoryId"))
+    @JoinTable(name = "itemsCategories", joinColumns = @JoinColumn(name = "iId", referencedColumnName = "itemId"),
+        inverseJoinColumns = @JoinColumn(name = "cId", referencedColumnName = "categoryId"))
     private List<ItemCategoryEntity> categories = new ArrayList<>();
 
     public IvaEntity getIva() {
