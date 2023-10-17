@@ -63,7 +63,7 @@ public class ItemEntity {
 
     //relations
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ivaId", referencedColumnName = "ivaId")
     private IvaEntity iva;
 
