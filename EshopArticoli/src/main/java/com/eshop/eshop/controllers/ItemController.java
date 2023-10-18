@@ -2,6 +2,7 @@ package com.eshop.eshop.controllers;
 
 import com.eshop.eshop.dto.ItemDto;
 import com.eshop.eshop.dto.ItemResponse;
+import com.eshop.eshop.exceptions.ErrorObj;
 import com.eshop.eshop.models.ItemCategoryEntity;
 import com.eshop.eshop.service.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -99,12 +100,13 @@ public class ItemController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Item with required ID"
+                            description = "Item with required ID",
+                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ItemDto.class))}
                     ),
                     @ApiResponse(
                             responseCode = "404",
                             description = "Item could not be found",
-                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ItemDto.class))}
+                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorObj.class))}
                     )
             }
     )
