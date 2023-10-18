@@ -136,8 +136,30 @@ public class ItemController {
         return new ResponseEntity<>(itemService.createItem(itemDto), HttpStatus.CREATED);
     }
 
+    @Operation(
+            description = "Modify existing item",
+            summary = "Modify existing item",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Item to modify in db",
+                    required = true
+            ),
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Item updated"
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Compilation Error"
+                    )
+            }
+    )
     @PutMapping(value = "/{id}/update")
-    public ResponseEntity<ItemDto> updateItem(@RequestBody ItemDto itemDto, @PathVariable("id") long id){
+    public ResponseEntity<ItemDto> updateItem(@Valid @RequestBody ItemDto itemDto, @PathVariable("id") long id, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            throw new RuntimeException("Compilation Error");
+        }
         return new ResponseEntity<>(itemService.updateItem(itemDto, id), HttpStatus.OK);
     }
 
