@@ -202,6 +202,31 @@ public class ItemController {
         return new ResponseEntity<>("Item deleted", HttpStatus.OK);
     }
 
+    @Operation(
+            description = "Set item category",
+            summary = "Set item category",
+            parameters = {
+                    @Parameter(
+                            name = "id",
+                            description = "Item ID filter",
+                            required = true
+                    )
+            },
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Category to give to the item",
+                    required = true
+            ),
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "category changed"
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Item not found"
+                    )
+            }
+    )
     @PostMapping(value = "/{id}/category")
     public ResponseEntity<ItemDto> setItemCategory(@PathVariable("id") Long itemId, @RequestBody ItemCategoryEntity category){
 
