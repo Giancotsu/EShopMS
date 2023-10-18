@@ -8,6 +8,7 @@ import com.eshop.eshop.models.ItemCategoryEntity;
 import com.eshop.eshop.models.ItemEntity;
 import com.eshop.eshop.repository.ItemRepository;
 import com.eshop.eshop.service.ItemService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,7 @@ public class ItemServiceImpl implements ItemService {
         this.itemRepository = itemRepository;
     }
 
+    @Cacheable(value = "items")
     @Override
     public ItemResponse getAllItems(int pageNumber, int pageSize) {
 
