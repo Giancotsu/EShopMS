@@ -83,19 +83,19 @@ public class ItemController {
     }
 
     @Operation(
-            description = "Get item by id",
-            summary = "Get item by id",
+            description = "Get item by ID",
+            summary = "Get item by ID",
             parameters = {
                     @Parameter(
                             name = "id",
-                            description = "Item id filter",
+                            description = "Item ID filter",
                             required = true
                     )
             },
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Item with required id"
+                            description = "Item with required ID"
                     ),
                     @ApiResponse(
                             responseCode = "404",
@@ -149,6 +149,10 @@ public class ItemController {
                             description = "Item updated"
                     ),
                     @ApiResponse(
+                            responseCode = "404",
+                            description = "Item could not be updated"
+                    ),
+                    @ApiResponse(
                             responseCode = "500",
                             description = "Compilation Error"
                     )
@@ -163,6 +167,20 @@ public class ItemController {
         return new ResponseEntity<>(itemService.updateItem(itemDto, id), HttpStatus.OK);
     }
 
+    @Operation(
+            description = "Delete item",
+            summary = "Delete item by ID",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Item deleted"
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Item could not be deleted"
+                    )
+            }
+    )
     @DeleteMapping(value = "/{id}/delete")
     public ResponseEntity<String> deleteItem(@PathVariable("id") long id){
 
