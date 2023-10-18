@@ -5,9 +5,7 @@ import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.servers.Server;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
 @OpenAPIDefinition(
         info = @Info(
                 contact = @Contact(
@@ -22,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
                         name = "license-name",
                         url = "https://license-site.com"
                 ),
-                termsOfService = "Terms of service"
+                termsOfService = "https://termofservice.com"
         ),
         servers = {
                 @Server(
