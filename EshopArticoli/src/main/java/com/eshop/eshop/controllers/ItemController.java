@@ -6,6 +6,8 @@ import com.eshop.eshop.models.ItemCategoryEntity;
 import com.eshop.eshop.service.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -45,7 +47,8 @@ public class ItemController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "All items saved in db"
+                            description = "All items saved in db",
+                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ItemResponse.class))}
                     )
             }
     )
