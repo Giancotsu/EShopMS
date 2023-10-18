@@ -125,7 +125,8 @@ public class ItemController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Item created"
+                            description = "Item created",
+                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ItemDto.class))}
                     ),
                     @ApiResponse(
                             responseCode = "500",
@@ -160,11 +161,13 @@ public class ItemController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Item updated"
+                            description = "Item updated",
+                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ItemDto.class))}
                     ),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Item could not be updated"
+                            description = "Item could not be updated",
+                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorObj.class))}
                     ),
                     @ApiResponse(
                             responseCode = "500",
@@ -194,11 +197,13 @@ public class ItemController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Item deleted"
+                            description = "Item deleted",
+                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = String.class))}
                     ),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Item could not be deleted"
+                            description = "Item could not be deleted",
+                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorObj.class))}
                     )
             }
     )
@@ -226,11 +231,13 @@ public class ItemController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "category changed"
+                            description = "category changed",
+                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ItemDto.class))}
                     ),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Item not found"
+                            description = "Item not found",
+                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorObj.class))}
                     )
             }
     )
