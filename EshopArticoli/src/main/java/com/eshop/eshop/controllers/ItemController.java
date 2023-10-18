@@ -82,6 +82,27 @@ public class ItemController {
         return new ResponseEntity<>(itemService.getItemsByCategory(categoryName), HttpStatus.OK);
     }
 
+    @Operation(
+            description = "Get item by id",
+            summary = "Get item by id",
+            parameters = {
+                    @Parameter(
+                            name = "id",
+                            description = "Item id filter",
+                            required = true
+                    )
+            },
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Item with required id"
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Item could not be found"
+                    )
+            }
+    )
     @GetMapping(value = "/{id}")
     public ResponseEntity<ItemDto> getItemById(@PathVariable("id") long id){
         return new ResponseEntity<>(itemService.getItemById(id), HttpStatus.OK);
