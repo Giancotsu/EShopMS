@@ -124,7 +124,7 @@ public class ItemController {
             ),
             responses = {
                     @ApiResponse(
-                            responseCode = "200",
+                            responseCode = "201",
                             description = "Item created",
                             content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ItemDto.class))}
                     ),
