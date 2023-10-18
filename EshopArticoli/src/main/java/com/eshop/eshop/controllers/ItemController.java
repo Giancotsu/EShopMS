@@ -4,6 +4,10 @@ import com.eshop.eshop.dto.ItemDto;
 import com.eshop.eshop.dto.ItemResponse;
 import com.eshop.eshop.models.ItemCategoryEntity;
 import com.eshop.eshop.service.ItemService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/item")
+@Tag(name = "Item")
 public class ItemController {
 
     private final ItemService itemService;
@@ -22,6 +27,28 @@ public class ItemController {
         this.itemService = itemService;
     }
 
+    @Operation(
+            description = "Get all items endpoint",
+            summary = "Get x items with pagination",
+            parameters = {
+                    @Parameter(
+                            name = "pageNumber",
+                            description = "Current page",
+                            required = false
+                    ),
+                    @Parameter(
+                            name = "pageSize",
+                            description = "Number of elements for page",
+                            required = false
+                    )
+            },
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "All items saved in db"
+                    )
+            }
+    )
     @GetMapping
     public ResponseEntity<ItemResponse> getAllItems(
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
