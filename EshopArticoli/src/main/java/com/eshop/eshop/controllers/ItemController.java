@@ -75,7 +75,8 @@ public class ItemController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "All items in x category"
+                            description = "All items in x category",
+                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ItemDto.class))}
                     )
             }
     )
@@ -102,7 +103,8 @@ public class ItemController {
                     ),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Item could not be found"
+                            description = "Item could not be found",
+                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ItemDto.class))}
                     )
             }
     )
