@@ -139,6 +139,13 @@ public class ItemController {
     @Operation(
             description = "Modify existing item",
             summary = "Modify existing item",
+            parameters = {
+                    @Parameter(
+                            name = "id",
+                            description = "Item ID filter",
+                            required = true
+                    )
+            },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "Item to modify in db",
                     required = true
@@ -170,6 +177,13 @@ public class ItemController {
     @Operation(
             description = "Delete item",
             summary = "Delete item by ID",
+            parameters = {
+                    @Parameter(
+                            name = "id",
+                            description = "Item ID filter",
+                            required = true
+                    )
+            },
             responses = {
                     @ApiResponse(
                             responseCode = "200",
