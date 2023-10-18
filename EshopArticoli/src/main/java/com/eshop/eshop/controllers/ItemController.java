@@ -108,12 +108,30 @@ public class ItemController {
         return new ResponseEntity<>(itemService.getItemById(id), HttpStatus.OK);
     }
 
+    @Operation(
+            description = "Create new item",
+            summary = "Create new item",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Item to save in db",
+                    required = true
+            ),
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Item created"
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Compilation Error"
+                    )
+            }
+    )
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ItemDto> createItem(@Valid @RequestBody ItemDto itemDto, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            throw new RuntimeException("Errore di compilazione");
+            throw new RuntimeException("Compilation Error");
         }
         return new ResponseEntity<>(itemService.createItem(itemDto), HttpStatus.CREATED);
     }
