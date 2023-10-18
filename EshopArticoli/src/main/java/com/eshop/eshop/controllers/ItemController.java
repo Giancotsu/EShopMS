@@ -59,6 +59,23 @@ public class ItemController {
         return new ResponseEntity<>(itemResponse, HttpStatus.OK);
     }
 
+    @Operation(
+            description = "Get all items by category",
+            summary = "Get all items in x category",
+            parameters = {
+                    @Parameter(
+                            name = "categoryName",
+                            description = "Category filter",
+                            required = true
+                    )
+            },
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "All items in x category"
+                    )
+            }
+    )
     @GetMapping(value = "/category/{categoryName}")
     public ResponseEntity<List<ItemDto>> getItemsByCategory(@PathVariable("categoryName") String categoryName){
 
