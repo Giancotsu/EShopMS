@@ -4,6 +4,7 @@ import com.eshop.eshop.dto.ItemDto;
 import com.eshop.eshop.dto.ItemResponse;
 import com.eshop.eshop.exceptions.ErrorObj;
 import com.eshop.eshop.models.ItemCategoryEntity;
+import com.eshop.eshop.models.IvaEntity;
 import com.eshop.eshop.service.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -245,5 +246,11 @@ public class ItemController {
     public ResponseEntity<ItemDto> setItemCategory(@PathVariable("id") Long itemId, @RequestBody ItemCategoryEntity category){
 
         return new ResponseEntity<>(itemService.setItemCategory(itemId, category), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/{id}/iva")
+    public ResponseEntity<ItemDto> setItemIva(@PathVariable("id") Long itemId, @RequestBody IvaEntity iva){
+
+        return new ResponseEntity<>(itemService.setItemIva(itemId, iva), HttpStatus.OK);
     }
 }
