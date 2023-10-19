@@ -46,4 +46,19 @@ public class ItemCategoryEntity implements Serializable {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ItemCategoryEntity category = (ItemCategoryEntity) o;
+
+        return getCategoryId() == category.getCategoryId();
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (getCategoryId() ^ (getCategoryId() >>> 32));
+    }
 }
