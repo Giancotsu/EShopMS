@@ -3,12 +3,17 @@ package com.eshop.eshop.models;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "ITEM")
-public class ItemEntity {
+public class ItemEntity implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -5512011424604603219L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
