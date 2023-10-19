@@ -6,6 +6,7 @@ import com.eshop.eshop.dto.converter.ItemConverter;
 import com.eshop.eshop.exceptions.ItemNotFoundException;
 import com.eshop.eshop.models.ItemCategoryEntity;
 import com.eshop.eshop.models.ItemEntity;
+import com.eshop.eshop.models.IvaEntity;
 import com.eshop.eshop.repository.ItemRepository;
 import com.eshop.eshop.service.ItemService;
 import org.springframework.cache.CacheManager;
@@ -132,20 +133,33 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemDto setItemCategory(Long id, ItemCategoryEntity category) {
+    public ItemDto setItemCategory(Long itemId, ItemCategoryEntity category) {
 
         System.err.println("SET ITEM CATEGORY:");
 
-        ItemEntity item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item not found"));
+        ItemEntity item = itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFoundException("Item not found"));
 
         List<ItemCategoryEntity> categories = item.getCategories();
         categories.add(category);
         item.setCategories(categories);
 
-        this.evictCache(id);
+        this.evictCache(itemId);
 
         return ItemConverter.itemToItemDto(itemRepository.save(item));
     }
+
+    @Override
+    public ItemDto setItemIva(Long itemId, IvaEntity iva) {
+
+        System.err.println("SET ITEM IVA:");
+
+        ItemEntity item = itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFoundException("Item not found"));
+
+        item.setIva(iva);
+
+        return ItemConverter.itemToItemDto(itemRepository.save(item));
+    }
+
 
     public void evictCache(Long id){
         cacheManager.getCache("item").evict(id);
