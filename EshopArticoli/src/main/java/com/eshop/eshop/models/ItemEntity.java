@@ -1,6 +1,5 @@
 package com.eshop.eshop.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -73,10 +72,6 @@ public class ItemEntity implements Serializable {
     @JoinColumn(name = "ivaId", referencedColumnName = "ivaId")
     private IvaEntity iva;
 
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<BarcodeEntity> barcodes = new ArrayList<>();
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "itemsCategories", joinColumns = @JoinColumn(name = "iId", referencedColumnName = "itemId"),
         inverseJoinColumns = @JoinColumn(name = "cId", referencedColumnName = "categoryId"))
@@ -88,14 +83,6 @@ public class ItemEntity implements Serializable {
 
     public void setIva(IvaEntity iva) {
         this.iva = iva;
-    }
-
-    public List<BarcodeEntity> getBarcodes() {
-        return barcodes;
-    }
-
-    public void setBarcodes(List<BarcodeEntity> barcodes) {
-        this.barcodes = barcodes;
     }
 
     public List<ItemCategoryEntity> getCategories() {
