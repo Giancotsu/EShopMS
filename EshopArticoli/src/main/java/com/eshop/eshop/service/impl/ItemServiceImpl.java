@@ -8,7 +8,9 @@ import com.eshop.eshop.models.ItemCategoryEntity;
 import com.eshop.eshop.models.ItemEntity;
 import com.eshop.eshop.repository.ItemRepository;
 import com.eshop.eshop.service.ItemService;
-import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,8 @@ import java.util.List;
 @CacheConfig(cacheNames={"items"})
 public class ItemServiceImpl implements ItemService {
 
+    @Autowired
+    CacheManager cacheManager;
     private final ItemRepository itemRepository;
 
     public ItemServiceImpl(ItemRepository itemRepository) {
@@ -28,7 +32,10 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Cacheable
     public ItemResponse getAllItems(int pageNumber, int pageSize) {
+
+        System.err.println("ALL ITEMS:");
 
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
@@ -53,13 +60,37 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Cacheable(value = "item", key = "#id", sync = true)
     public ItemDto getItemById(long id) {
+
+        System.err.println("ITEM BY ID:");
+
         ItemEntity item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be found"));
+
         return ItemConverter.itemToItemDto(item);
     }
 
     @Override
+    @Cacheable(value = "category")
+    public List<ItemDto> getItemsByCategory(String categoryName) {
+
+        System.err.println("ITEM BY CATEGORY:");
+
+        String filter = "%" + categoryName.toUpperCase() + "%";
+
+        List<ItemEntity> items = itemRepository.selItemsByCategory(filter);
+
+        return items.stream().map(ItemConverter::itemToItemDto).toList();
+    }
+
+    @Override
+    @Caching(evict = {
+            @CacheEvict(cacheNames = "items", allEntries = true),
+            @CacheEvict(cacheNames = "category", allEntries = true),
+    })
     public ItemDto createItem(ItemDto itemDto) {
+
+        System.err.println("ITEM CREATED:");
 
         ItemEntity item = ItemConverter.itemDtoToitem(itemDto);
 
@@ -69,7 +100,16 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Caching(put = {
+            @CachePut(cacheNames = "item", key = "#id"),
+    },
+    evict = {
+            @CacheEvict(cacheNames = "items", allEntries = true),
+            @CacheEvict(cacheNames = "category", allEntries = true),
+    })
     public ItemDto updateItem(ItemDto itemDto, long id) {
+
+        System.err.println("ITEM UPDATED:");
 
         itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be updated"));
 
@@ -86,28 +126,33 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void deleteItemById(long id) {
+        System.err.println("ITEM DELETED:");
         ItemEntity item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be deleted"));
         itemRepository.delete(item);
+        this.evictCache(item.getItemId());
     }
 
     @Override
-    public ItemDto setItemCategory(Long itemId, ItemCategoryEntity category) {
+    public ItemDto setItemCategory(Long id, ItemCategoryEntity category) {
 
-        ItemEntity item = itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFoundException("Item not found"));
+        System.err.println("SET ITEM CATEGORY:");
+
+        ItemEntity item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item not found"));
 
         List<ItemCategoryEntity> categories = item.getCategories();
         categories.add(category);
         item.setCategories(categories);
 
+        this.evictCache(id);
+
         return ItemConverter.itemToItemDto(itemRepository.save(item));
     }
 
-    @Override
-    public List<ItemDto> getItemsByCategory(String categoryName) {
-
-        String filter = "%" + categoryName.toUpperCase() + "%";
-
-        List<ItemEntity> items = itemRepository.selItemsByCategory(filter);
-        return items.stream().map(ItemConverter::itemToItemDto).toList();
+    public void evictCache(Long id){
+        cacheManager.getCache("item").evict(id);
+        cacheManager.getCache("items").clear();
+        cacheManager.getCache("category").clear();
+        System.out.println("cache pulita");
     }
+
 }
