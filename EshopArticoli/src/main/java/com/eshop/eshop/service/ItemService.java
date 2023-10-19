@@ -15,6 +15,7 @@ public interface ItemService {
     ItemDto updateItem(ItemDto itemDto, long id);
     void deleteItemById(long id);
     ItemDto setItemCategory(Long itemId, ItemCategoryEntity category);
+    ItemDto removeItemCategory(Long itemId, ItemCategoryEntity category);
     ItemDto setItemIva(Long itemId, IvaEntity iva);
 
     List<ItemDto> getItemsByCategory(String categoryName);
