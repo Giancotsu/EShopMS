@@ -148,7 +148,21 @@ public class ItemServiceImpl implements ItemService {
         return ItemConverter.itemToItemDto(itemRepository.save(item));
     }
 
+    @Override
+    public ItemDto removeItemCategory(Long itemId, ItemCategoryEntity category) {
 
+        System.err.println("REMOVE ITEM CATEGORY:");
+
+        ItemEntity item = itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFoundException("Item not found"));
+
+        List<ItemCategoryEntity> categories = item.getCategories();
+        System.err.println(categories.remove(category));
+        item.setCategories(categories);
+
+        this.evictCache(itemId);
+
+        return ItemConverter.itemToItemDto(itemRepository.save(item));
+    }
 
     @Override
     public ItemDto setItemIva(Long itemId, IvaEntity iva) {
