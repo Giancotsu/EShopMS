@@ -2,10 +2,15 @@ package com.eshop.eshop.dto;
 
 import lombok.Data;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class ItemResponse {
+public class ItemResponse implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -297939757496045214L;
 
     private List<ItemDto> content;
     private int pageNumber;
