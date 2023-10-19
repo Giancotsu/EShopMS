@@ -5,8 +5,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Entity(name = "CATEGORY")
-public class ItemCategoryEntity {
+public class ItemCategoryEntity implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 8572862759675107427L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
