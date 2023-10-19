@@ -8,11 +8,16 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Data
-public class ItemDto {
+public class ItemDto implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 7809761527879446715L;
 
     private long id;
     @NotNull(message = "required")
