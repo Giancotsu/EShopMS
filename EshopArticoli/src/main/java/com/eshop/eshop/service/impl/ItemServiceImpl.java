@@ -8,7 +8,6 @@ import com.eshop.eshop.models.ItemCategoryEntity;
 import com.eshop.eshop.models.ItemEntity;
 import com.eshop.eshop.repository.ItemRepository;
 import com.eshop.eshop.service.ItemService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.*;
 import org.springframework.data.domain.Page;
@@ -23,11 +22,11 @@ import java.util.List;
 @CacheConfig(cacheNames={"items"})
 public class ItemServiceImpl implements ItemService {
 
-    @Autowired
-    CacheManager cacheManager;
+    private final CacheManager cacheManager;
     private final ItemRepository itemRepository;
 
-    public ItemServiceImpl(ItemRepository itemRepository) {
+    public ItemServiceImpl(CacheManager cacheManager, ItemRepository itemRepository) {
+        this.cacheManager = cacheManager;
         this.itemRepository = itemRepository;
     }
 
