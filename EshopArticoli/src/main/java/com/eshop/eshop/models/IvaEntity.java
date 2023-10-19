@@ -2,11 +2,16 @@ package com.eshop.eshop.models;
 
 import jakarta.persistence.*;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "IVA")
-public class IvaEntity {
+public class IvaEntity implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 8133237913381337558L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
