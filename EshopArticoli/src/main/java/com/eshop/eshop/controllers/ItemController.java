@@ -242,10 +242,16 @@ public class ItemController {
                     )
             }
     )
-    @PostMapping(value = "/{id}/category")
+    @PostMapping(value = "/{id}/category/add")
     public ResponseEntity<ItemDto> setItemCategory(@PathVariable("id") Long itemId, @RequestBody ItemCategoryEntity category){
 
         return new ResponseEntity<>(itemService.setItemCategory(itemId, category), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/{id}/category/remove")
+    public ResponseEntity<ItemDto> removeItemCategory(@PathVariable("id") Long itemId, @RequestBody ItemCategoryEntity category){
+
+        return new ResponseEntity<>(itemService.removeItemCategory(itemId, category), HttpStatus.OK);
     }
 
     @Operation(
