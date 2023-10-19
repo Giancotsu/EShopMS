@@ -148,6 +148,8 @@ public class ItemServiceImpl implements ItemService {
         return ItemConverter.itemToItemDto(itemRepository.save(item));
     }
 
+
+
     @Override
     public ItemDto setItemIva(Long itemId, IvaEntity iva) {
 
@@ -156,6 +158,8 @@ public class ItemServiceImpl implements ItemService {
         ItemEntity item = itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFoundException("Item not found"));
 
         item.setIva(iva);
+
+        this.evictCache(itemId);
 
         return ItemConverter.itemToItemDto(itemRepository.save(item));
     }
