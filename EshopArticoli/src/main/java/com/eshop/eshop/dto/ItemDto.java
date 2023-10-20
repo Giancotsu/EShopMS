@@ -11,7 +11,7 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 
 @Data
 public class ItemDto implements Serializable {
@@ -32,6 +32,6 @@ public class ItemDto implements Serializable {
     @Min(value = 0, message = "min zero")
     @Schema(name = "price", description = "Item price")
     private BigDecimal price;
-    private List<ItemCategoryEntity> categories;
+    private Set<ItemCategoryEntity> categories;
     private IvaEntity iva;
 }
