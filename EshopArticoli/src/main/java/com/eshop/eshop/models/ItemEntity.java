@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "ITEM")
 public class ItemEntity implements Serializable {
@@ -75,7 +75,7 @@ public class ItemEntity implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "itemsCategories", joinColumns = @JoinColumn(name = "iId", referencedColumnName = "itemId"),
         inverseJoinColumns = @JoinColumn(name = "cId", referencedColumnName = "categoryId"))
-    private List<ItemCategoryEntity> categories = new ArrayList<>();
+    private Set<ItemCategoryEntity> categories = new HashSet<>();
 
     public IvaEntity getIva() {
         return iva;
@@ -85,11 +85,11 @@ public class ItemEntity implements Serializable {
         this.iva = iva;
     }
 
-    public List<ItemCategoryEntity> getCategories() {
+    public Set<ItemCategoryEntity> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<ItemCategoryEntity> categories) {
+    public void setCategories(Set<ItemCategoryEntity> categories) {
         this.categories = categories;
     }
 }
