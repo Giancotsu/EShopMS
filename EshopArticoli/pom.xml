@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.eshop</groupId>
-	<artifactId>eshop-articoli</artifactId>
+	<artifactId>eshop-items</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Eshop</name>
 	<description>Microservices java application</description>
