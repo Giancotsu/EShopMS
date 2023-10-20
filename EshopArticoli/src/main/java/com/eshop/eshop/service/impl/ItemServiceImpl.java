@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @CacheConfig(cacheNames={"items"})
@@ -139,7 +140,7 @@ public class ItemServiceImpl implements ItemService {
 
         ItemEntity item = itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFoundException("Item not found"));
 
-        List<ItemCategoryEntity> categories = item.getCategories();
+        Set<ItemCategoryEntity> categories = item.getCategories();
         categories.add(category);
         item.setCategories(categories);
 
@@ -155,7 +156,7 @@ public class ItemServiceImpl implements ItemService {
 
         ItemEntity item = itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFoundException("Item not found"));
 
-        List<ItemCategoryEntity> categories = item.getCategories();
+        Set<ItemCategoryEntity> categories = item.getCategories();
         System.err.println(categories.remove(category));
         item.setCategories(categories);
 
