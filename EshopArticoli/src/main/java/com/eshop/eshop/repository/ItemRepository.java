@@ -13,4 +13,7 @@ public interface ItemRepository extends PagingAndSortingRepository<ItemEntity, L
     @Query(value = "SELECT * FROM ITEM i INNER JOIN ITEMS_CATEGORIES ic ON i.ITEM_ID = ic.I_ID INNER JOIN CATEGORY c ON ic.C_ID = c.CATEGORY_ID AND c.CATEGORY_NAME LIKE :category_name", nativeQuery = true)
     List<ItemEntity> selItemsByCategory(@Param("category_name") String category);
 
+    @Query(value = "SELECT COUNT(*) FROM ITEM")
+    long itemsCount();
+
 }
