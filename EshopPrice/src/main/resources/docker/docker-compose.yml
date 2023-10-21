@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+
+  price-db:
+    container_name: "eshop-price-db"
+    image: postgres
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: giancotsu
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: eshop-price
