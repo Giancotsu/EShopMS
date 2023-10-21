@@ -17,6 +17,5 @@ public interface ItemService {
     ItemDto setItemCategory(Long itemId, ItemCategoryEntity category);
     ItemDto removeItemCategory(Long itemId, ItemCategoryEntity category);
     ItemDto setItemIva(Long itemId, IvaEntity iva);
-
     List<ItemDto> getItemsByCategory(String categoryName);
 }
