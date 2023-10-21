@@ -3,10 +3,7 @@ package com.eshop.eshop.components;
 import com.eshop.eshop.models.ItemEntity;
 import com.eshop.eshop.repository.ItemRepository;
 import lombok.Data;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.annotation.Selector;
-import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -52,5 +49,8 @@ public class ActuatorCustomEndpoint {
         return "Post Enpoint: " + name;
     }
 
-
+    @DeleteOperation
+    public String deleteEndpointExample(@Selector String name){
+        return "Delete Enpoint: " + name;
+    }
 }
