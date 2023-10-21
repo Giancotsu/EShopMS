@@ -20,7 +20,7 @@ public class ItemsInfoContributor implements InfoContributor {
     @Override
     public void contribute(Info.Builder builder) {
 
-        long itemsQty = itemRepository.findAll().size();
+        long itemsQty = itemRepository.itemsCount();
 
         Map<String, Long> itemMap = new HashMap<>();
         itemMap.put("Quantity of items", itemsQty);
