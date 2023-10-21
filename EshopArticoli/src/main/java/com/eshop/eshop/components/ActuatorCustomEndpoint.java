@@ -6,6 +6,7 @@ import lombok.Data;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -45,4 +46,11 @@ public class ActuatorCustomEndpoint {
             return items;
         }
     }
+
+    @WriteOperation
+    public String postEndpointExample(@Selector String name){
+        return "Post Enpoint: " + name;
+    }
+
+
 }
