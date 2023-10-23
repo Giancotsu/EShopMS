@@ -21,6 +21,12 @@ public class PriceListEntity {
     public PriceListEntity() {
     }
 
+    public PriceListEntity(long priceListId, String description, boolean obsolete) {
+        this.priceListId = priceListId;
+        this.description = description;
+        this.obsolete = obsolete;
+    }
+
     public PriceListEntity(String description, boolean obsolete) {
         this.description = description;
         this.obsolete = obsolete;
