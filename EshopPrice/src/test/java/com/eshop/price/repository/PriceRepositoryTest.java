@@ -20,22 +20,26 @@ public class PriceRepositoryTest {
         this.priceRepository = priceRepository;
     }
 
+    String priceListId = "100";
+    String itemId = "1";
+    Double price = 1.00;
+
     @Test
     @Order(1)
     public void testInsListino()
     {
-        Listini listinoTest = new Listini(IdList,"Listino Test 100","No");
+        PriceList priceListTest = new PriceList(priceListId,"Price list test 100","No");
 
-        Set<DettListini> dettListini = new HashSet<>();
-        DettListini dettListTest = new DettListini(CodArt,Prezzo, listinoTest);
-        dettListini.add(dettListTest);
+        Set<PriceListDetails> listDetails = new HashSet<>();
+        PriceListDetails listDetailsTest = new PriceListDetails(itemId, price, priceListTest);
+        listDetails.add(listDetailsTest);
 
-        listinoTest.setDettListini(dettListini);
+        priceListTest.setPriceListDetails(listDetails);
 
-        listinoRepository.save(listinoTest);
+        priceRepository.save(priceListTest);
 
-        assertThat(listinoRepository
-                .findById(IdList))
+        assertThat(priceRepository
+                .findById(PriceListId))
                 .isNotEmpty();
 
     }
