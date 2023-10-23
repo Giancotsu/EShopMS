@@ -1,14 +1,12 @@
 package com.eshop.price.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
 @Entity(name = "PRICE-LIST-DETAILS")
-public class PriceListDetails {
+public class PriceListDetailsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,12 +16,18 @@ public class PriceListDetails {
 
     private BigDecimal price;
 
-    public PriceListDetails() {
+    public PriceListDetailsEntity() {
     }
 
-    public PriceListDetails(long itemId, BigDecimal price) {
+    public PriceListDetailsEntity(long itemId, BigDecimal price) {
         this.itemId = itemId;
         this.price = price;
+    }
+
+    public PriceListDetailsEntity(long itemId, BigDecimal price, PriceListEntity priceList) {
+        this.itemId = itemId;
+        this.price = price;
+        this.priceList = priceList;
     }
 
     public long getPriceListDetailsId() {
@@ -48,5 +52,18 @@ public class PriceListDetails {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "priceListId", referencedColumnName = "priceListId")
+    @JsonBackReference
+    private PriceListEntity priceList;
+
+    public PriceListEntity getPriceList() {
+        return priceList;
+    }
+
+    public void setPriceList(PriceListEntity priceList) {
+        this.priceList = priceList;
     }
 }
