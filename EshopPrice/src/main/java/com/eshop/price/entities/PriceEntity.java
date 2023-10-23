@@ -2,9 +2,7 @@ package com.eshop.price.entities;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity(name = "PRICE")
@@ -16,13 +14,16 @@ public class PriceEntity {
 
     private BigDecimal price;
 
+    private long itemId;
+
     //constructor
 
     public PriceEntity() {
     }
 
-    public PriceEntity(BigDecimal price) {
+    public PriceEntity(BigDecimal price, long itemId) {
         this.price = price;
+        this.itemId = itemId;
     }
 
     //getter & setter
@@ -41,6 +42,14 @@ public class PriceEntity {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public long getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(long itemId) {
+        this.itemId = itemId;
     }
 
     //relations
