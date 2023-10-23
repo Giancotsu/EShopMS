@@ -1,9 +1,10 @@
 package com.eshop.price.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "PRICE-LIST")
 public class PriceListEntity {
@@ -49,5 +50,15 @@ public class PriceListEntity {
         this.obsolete = obsolete;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "priceList")
+    @JsonManagedReference
+    private Set<PriceListDetailsEntity> priceListDetails = new HashSet<>();
 
+    public Set<PriceListDetailsEntity> getPriceListDetails() {
+        return priceListDetails;
+    }
+
+    public void setPriceListDetails(Set<PriceListDetailsEntity> priceListDetails) {
+        this.priceListDetails = priceListDetails;
+    }
 }
