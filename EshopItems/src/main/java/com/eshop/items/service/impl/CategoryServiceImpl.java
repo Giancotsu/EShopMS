@@ -2,7 +2,7 @@ package com.eshop.items.service.impl;
 
 import com.eshop.items.dto.CategoryDto;
 import com.eshop.items.dto.converter.CategoryConverter;
-import com.eshop.items.models.ItemCategoryEntity;
+import com.eshop.items.entities.ItemCategoryEntity;
 import com.eshop.items.repository.CategoryRepository;
 import com.eshop.items.service.CategoryService;
 import org.springframework.stereotype.Service;

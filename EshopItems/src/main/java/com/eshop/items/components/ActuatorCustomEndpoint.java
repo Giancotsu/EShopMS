@@ -1,6 +1,6 @@
 package com.eshop.items.components;
 
-import com.eshop.items.models.ItemEntity;
+import com.eshop.items.entities.ItemEntity;
 import com.eshop.items.repository.ItemRepository;
 import lombok.Data;
 import org.springframework.boot.actuate.endpoint.annotation.*;

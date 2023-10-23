@@ -1,6 +1,6 @@
 package com.eshop.items.repository;
 
-import com.eshop.items.models.ItemEntity;
+import com.eshop.items.entities.ItemEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;

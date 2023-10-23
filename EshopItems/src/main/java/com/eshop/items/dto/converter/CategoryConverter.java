@@ -1,7 +1,7 @@
 package com.eshop.items.dto.converter;
 
 import com.eshop.items.dto.CategoryDto;
-import com.eshop.items.models.ItemCategoryEntity;
+import com.eshop.items.entities.ItemCategoryEntity;
 
 public class CategoryConverter {
 

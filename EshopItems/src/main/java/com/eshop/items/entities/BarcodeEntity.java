@@ -1,4 +1,4 @@
-package com.eshop.items.models;
+package com.eshop.items.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;

@@ -2,8 +2,8 @@ package com.eshop.items.service;
 
 import com.eshop.items.dto.ItemDto;
 import com.eshop.items.dto.ItemResponse;
-import com.eshop.items.models.ItemCategoryEntity;
-import com.eshop.items.models.IvaEntity;
+import com.eshop.items.entities.ItemCategoryEntity;
+import com.eshop.items.entities.IvaEntity;
 
 import java.util.List;
 

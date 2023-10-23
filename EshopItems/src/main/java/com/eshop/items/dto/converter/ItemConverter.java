@@ -1,7 +1,7 @@
 package com.eshop.items.dto.converter;
 
 import com.eshop.items.dto.ItemDto;
-import com.eshop.items.models.ItemEntity;
+import com.eshop.items.entities.ItemEntity;
 
 public class ItemConverter {
 

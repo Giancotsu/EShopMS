@@ -1,4 +1,4 @@
-package com.eshop.items.models;
+package com.eshop.items.entities;
 
 import jakarta.persistence.*;
 

@@ -2,7 +2,7 @@ package com.eshop.items.controller;
 
 import com.eshop.items.controllers.ItemController;
 import com.eshop.items.dto.ItemDto;
-import com.eshop.items.models.ItemEntity;
+import com.eshop.items.entities.ItemEntity;
 import com.eshop.items.service.ItemService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;

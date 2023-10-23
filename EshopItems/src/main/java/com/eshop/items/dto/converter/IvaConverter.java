@@ -1,7 +1,7 @@
 package com.eshop.items.dto.converter;
 
 import com.eshop.items.dto.IvaDto;
-import com.eshop.items.models.IvaEntity;
+import com.eshop.items.entities.IvaEntity;
 
 public class IvaConverter {
 

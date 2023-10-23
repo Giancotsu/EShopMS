@@ -2,7 +2,7 @@ package com.eshop.items.service.impl;
 
 import com.eshop.items.dto.IvaDto;
 import com.eshop.items.dto.converter.IvaConverter;
-import com.eshop.items.models.IvaEntity;
+import com.eshop.items.entities.IvaEntity;
 import com.eshop.items.repository.IvaRepository;
 import com.eshop.items.service.IvaService;
 import org.springframework.stereotype.Service;
