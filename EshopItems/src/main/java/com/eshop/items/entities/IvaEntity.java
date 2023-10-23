@@ -18,7 +18,7 @@ public class IvaEntity implements Serializable {
     private long ivaId;
     private int ivaValue;
 
-    //contructor
+    //constructor
 
     public IvaEntity() {}
 
