@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.4</version>
+		<version>3.1.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.eshop</groupId>
-	<artifactId>eshopConfigServer</artifactId>
+	<artifactId>EshopConfigServer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>eshopConfigServer</name>
+	<name>EshopConfigServer</name>
 	<description>Spring cloud config</description>
 	<properties>
 		<java.version>17</java.version>
