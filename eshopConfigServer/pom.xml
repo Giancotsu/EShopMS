@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.eshop</groupId>
-	<artifactId>eshopConfigServer</artifactId>
+	<artifactId>EshopConfigServer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>eshopConfigServer</name>
 	<description>Spring cloud config</description>
