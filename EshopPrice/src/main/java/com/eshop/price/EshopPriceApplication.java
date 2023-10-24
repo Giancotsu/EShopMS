@@ -11,5 +11,4 @@ public class EshopPriceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EshopPriceApplication.class, args);
 	}
-
 }
