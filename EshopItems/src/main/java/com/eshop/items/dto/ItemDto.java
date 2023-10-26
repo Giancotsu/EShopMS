@@ -1,7 +1,6 @@
 package com.eshop.items.dto;
 
 import com.eshop.items.entities.ItemCategoryEntity;
-import com.eshop.items.entities.IvaEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -33,5 +32,4 @@ public class ItemDto implements Serializable {
     @Schema(name = "price", description = "Item price")
     private BigDecimal price;
     private Set<ItemCategoryEntity> categories;
-    private IvaEntity iva;
 }
