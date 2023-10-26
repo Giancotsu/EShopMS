@@ -3,7 +3,6 @@ package com.eshop.items.service;
 import com.eshop.items.dto.ItemDto;
 import com.eshop.items.dto.ItemResponse;
 import com.eshop.items.entities.ItemCategoryEntity;
-import com.eshop.items.entities.IvaEntity;
 
 import java.util.List;
 
@@ -16,6 +15,5 @@ public interface ItemService {
     void deleteItemById(long id);
     ItemDto setItemCategory(Long itemId, ItemCategoryEntity category);
     ItemDto removeItemCategory(Long itemId, ItemCategoryEntity category);
-    ItemDto setItemIva(Long itemId, IvaEntity iva);
     List<ItemDto> getItemsByCategory(String categoryName);
 }
