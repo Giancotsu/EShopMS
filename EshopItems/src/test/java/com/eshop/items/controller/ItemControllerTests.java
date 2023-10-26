@@ -37,7 +37,7 @@ public class ItemControllerTests {
 
     @BeforeEach
     public void init(){
-        item = new ItemEntity("iphone 30", "Smartphone, 4k resolution, 50GB RAM, 10TB internal memory", BigDecimal.valueOf(13000.50));
+        item = new ItemEntity("iphone 30", "Smartphone, 4k resolution, 50GB RAM, 10TB internal memory");
     }
 
     @Test
