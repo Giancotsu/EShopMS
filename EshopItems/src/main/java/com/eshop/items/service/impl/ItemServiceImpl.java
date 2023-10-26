@@ -6,7 +6,6 @@ import com.eshop.items.dto.converter.ItemConverter;
 import com.eshop.items.exceptions.ItemNotFoundException;
 import com.eshop.items.entities.ItemCategoryEntity;
 import com.eshop.items.entities.ItemEntity;
-import com.eshop.items.entities.IvaEntity;
 import com.eshop.items.repository.ItemRepository;
 import com.eshop.items.service.ItemService;
 import org.springframework.cache.CacheManager;
@@ -164,21 +163,6 @@ public class ItemServiceImpl implements ItemService {
 
         return ItemConverter.itemToItemDto(itemRepository.save(item));
     }
-
-    @Override
-    public ItemDto setItemIva(Long itemId, IvaEntity iva) {
-
-        System.err.println("SET ITEM IVA:");
-
-        ItemEntity item = itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFoundException("Item not found"));
-
-        item.setIva(iva);
-
-        this.evictCache(itemId);
-
-        return ItemConverter.itemToItemDto(itemRepository.save(item));
-    }
-
 
     public void evictCache(Long id){
         cacheManager.getCache("item").evict(id);
