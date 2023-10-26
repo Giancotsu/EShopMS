@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+
 @RestController
 @RequestMapping(value = "/api/price")
 public class PriceController {
@@ -20,7 +22,7 @@ public class PriceController {
     }
 
     @GetMapping(value = "/item/{itemId}")
-    public ResponseEntity<PriceDto> getPriceByItem(@PathVariable("itemId") long itemId){
+    public ResponseEntity<BigDecimal> getPriceByItem(@PathVariable("itemId") long itemId){
         return new ResponseEntity<>(priceService.getPriceByItem(itemId), HttpStatus.OK);
     }
 }
