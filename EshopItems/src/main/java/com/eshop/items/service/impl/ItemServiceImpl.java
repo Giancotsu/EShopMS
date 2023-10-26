@@ -6,6 +6,7 @@ import com.eshop.items.dto.converter.ItemConverter;
 import com.eshop.items.exceptions.ItemNotFoundException;
 import com.eshop.items.entities.ItemCategoryEntity;
 import com.eshop.items.entities.ItemEntity;
+import com.eshop.items.openfeign.PriceClient;
 import com.eshop.items.repository.ItemRepository;
 import com.eshop.items.service.ItemService;
 import org.springframework.cache.CacheManager;
@@ -26,9 +27,12 @@ public class ItemServiceImpl implements ItemService {
     private final CacheManager cacheManager;
     private final ItemRepository itemRepository;
 
-    public ItemServiceImpl(CacheManager cacheManager, ItemRepository itemRepository) {
+    private final PriceClient priceClient;
+
+    public ItemServiceImpl(CacheManager cacheManager, ItemRepository itemRepository, PriceClient priceClient) {
         this.cacheManager = cacheManager;
         this.itemRepository = itemRepository;
+        this.priceClient = priceClient;
     }
 
     @Override
@@ -66,8 +70,11 @@ public class ItemServiceImpl implements ItemService {
         System.err.println("ITEM BY ID:");
 
         ItemEntity item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be found"));
+        ItemDto itemDtoReturned = ItemConverter.itemToItemDto(item);
 
-        return ItemConverter.itemToItemDto(item);
+        itemDtoReturned.setPrice(priceClient.getItemPrice(itemDtoReturned.getId()));
+
+        return itemDtoReturned;
     }
 
     @Override
