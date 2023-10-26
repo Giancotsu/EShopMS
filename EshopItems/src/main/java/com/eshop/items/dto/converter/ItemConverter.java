@@ -10,7 +10,6 @@ public class ItemConverter {
         item.setItemId(itemDto.getId());
         item.setName(itemDto.getName());
         item.setDetails(itemDto.getDetails());
-        item.setPrice(itemDto.getPrice());
         item.setCategories(itemDto.getCategories());
         item.setIva(itemDto.getIva());
 
@@ -22,7 +21,6 @@ public class ItemConverter {
         itemDto.setId(item.getItemId());
         itemDto.setName(item.getName());
         itemDto.setDetails(item.getDetails());
-        itemDto.setPrice(item.getPrice());
         itemDto.setCategories(item.getCategories());
         itemDto.setIva(item.getIva());
 
