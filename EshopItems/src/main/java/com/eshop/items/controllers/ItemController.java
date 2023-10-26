@@ -4,7 +4,6 @@ import com.eshop.items.dto.ItemDto;
 import com.eshop.items.dto.ItemResponse;
 import com.eshop.items.exceptions.ErrorObj;
 import com.eshop.items.entities.ItemCategoryEntity;
-import com.eshop.items.entities.IvaEntity;
 import com.eshop.items.service.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -254,36 +253,4 @@ public class ItemController {
         return new ResponseEntity<>(itemService.removeItemCategory(itemId, category), HttpStatus.OK);
     }
 
-    @Operation(
-            description = "Set item iva",
-            summary = "Set item iva",
-            parameters = {
-                    @Parameter(
-                            name = "id",
-                            description = "Item ID filter",
-                            required = true
-                    )
-            },
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Iva to give to the item",
-                    required = true
-            ),
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "iva changed",
-                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ItemDto.class))}
-                    ),
-                    @ApiResponse(
-                            responseCode = "404",
-                            description = "Item not found",
-                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorObj.class))}
-                    )
-            }
-    )
-    @PostMapping(value = "/{id}/iva")
-    public ResponseEntity<ItemDto> setItemIva(@PathVariable("id") Long itemId, @RequestBody IvaEntity iva){
-
-        return new ResponseEntity<>(itemService.setItemIva(itemId, iva), HttpStatus.OK);
-    }
 }
