@@ -1,10 +1,11 @@
 package com.eshop.price.service.impl;
 
 import com.eshop.price.dtos.PriceDto;
-import com.eshop.price.dtos.mapper.PriceMapper;
 import com.eshop.price.repositories.PriceRepository;
 import com.eshop.price.service.PriceService;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service
 public class PriceServiceImpl implements PriceService {
@@ -16,8 +17,8 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public PriceDto getPriceByItem(long itemId) {
-        return PriceMapper.entityToDto(priceRepository.findPriceEntityByItemId(itemId));
+    public BigDecimal getPriceByItem(long itemId) {
+        return priceRepository.findPriceEntityByItemId(itemId).getPrice();
     }
 
     @Override
