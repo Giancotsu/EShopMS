@@ -58,22 +58,10 @@ public class ItemEntity implements Serializable {
 
     //relations
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ivaId", referencedColumnName = "ivaId")
-    private IvaEntity iva;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "itemsCategories", joinColumns = @JoinColumn(name = "iId", referencedColumnName = "itemId"),
         inverseJoinColumns = @JoinColumn(name = "cId", referencedColumnName = "categoryId"))
     private Set<ItemCategoryEntity> categories = new HashSet<>();
-
-    public IvaEntity getIva() {
-        return iva;
-    }
-
-    public void setIva(IvaEntity iva) {
-        this.iva = iva;
-    }
 
     public Set<ItemCategoryEntity> getCategories() {
         return categories;
