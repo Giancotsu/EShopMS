@@ -20,16 +20,14 @@ public class ItemEntity implements Serializable {
 
     private String name;
     private String details;
-    private BigDecimal price;
 
     //contructor
 
     public ItemEntity(){}
 
-    public ItemEntity(String name, String details, BigDecimal price) {
+    public ItemEntity(String name, String details) {
         this.name = name;
         this.details = details;
-        this.price = price;
     }
 
     //getter & setter
@@ -56,14 +54,6 @@ public class ItemEntity implements Serializable {
 
     public void setDetails(String details) {
         this.details = details;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 
     //relations
