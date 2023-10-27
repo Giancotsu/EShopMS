@@ -11,6 +11,7 @@ public class PriceMapper {
 
         PriceEntity price = new PriceEntity();
         price.setPriceId(priceDto.getId());
+        price.setItemId(priceDto.getItemId());
         price.setPrice(priceDto.getPrice());
         price.setSales(priceDto.getSales().stream().map(SaleMapper::dtoToEntity).collect(Collectors.toSet()));
         return price;
@@ -20,6 +21,7 @@ public class PriceMapper {
 
         PriceDto priceDto = new PriceDto();
         priceDto.setId(price.getPriceId());
+        priceDto.setItemId(price.getItemId());
         priceDto.setPrice(price.getPrice());
         priceDto.setSales(price.getSales().stream().map(SaleMapper::entityToDto).collect(Collectors.toSet()));
         return priceDto;
