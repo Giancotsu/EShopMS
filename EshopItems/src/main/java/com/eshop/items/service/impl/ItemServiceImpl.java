@@ -49,7 +49,9 @@ public class ItemServiceImpl implements ItemService {
         List<ItemDto> itemsDto = new ArrayList<>();
 
         for(ItemEntity item: listOfItem){
-            itemsDto.add(ItemConverter.itemToItemDto(item));
+            ItemDto itemDto =ItemConverter.itemToItemDto(item);
+            itemDto.setPrice(priceClient.getItemPrice(itemDto.getId()));
+            itemsDto.add(itemDto);
         }
 
         ItemResponse itemResponse = new ItemResponse();
