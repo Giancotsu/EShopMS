@@ -26,13 +26,14 @@ public class PriceServiceImpl implements PriceService {
     public BigDecimal getPriceByItem(long itemId) {
         PriceEntity priceEntity = priceRepository.findPriceEntityByItemId(itemId);
         if(priceEntity==null){
-            return BigDecimal.valueOf(0);
+            return BigDecimal.valueOf(999999999);
         }
         return priceEntity.getPrice();
     }
 
     @Override
     public PriceDto setPriceToItem(long itemId, BigDecimal price) {
+        if(itemId<0){throw new RuntimeException("Price could not be set");}
         PriceDto priceDto;
         PriceEntity priceEntity = priceRepository.findPriceEntityByItemId(itemId);
         if(priceEntity!=null){
