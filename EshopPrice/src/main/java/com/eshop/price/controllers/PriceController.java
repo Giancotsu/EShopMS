@@ -3,7 +3,6 @@ package com.eshop.price.controllers;
 import com.eshop.price.dtos.PriceDto;
 import com.eshop.price.service.impl.PriceServiceImpl;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
