@@ -3,6 +3,7 @@ package com.eshop.price.service.impl;
 import com.eshop.price.dtos.PriceDto;
 import com.eshop.price.dtos.mapper.PriceMapper;
 import com.eshop.price.entities.PriceEntity;
+import com.eshop.price.openfeign.ItemClient;
 import com.eshop.price.repositories.PriceRepository;
 import com.eshop.price.service.PriceService;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,11 @@ import java.util.HashSet;
 public class PriceServiceImpl implements PriceService {
 
     private final PriceRepository priceRepository;
+    private final ItemClient itemClient;
 
-    public PriceServiceImpl(PriceRepository priceRepository) {
+    public PriceServiceImpl(PriceRepository priceRepository, ItemClient itemClient) {
         this.priceRepository = priceRepository;
+        this.itemClient = itemClient;
     }
 
     @Override
@@ -42,6 +45,7 @@ public class PriceServiceImpl implements PriceService {
             priceDto.setSales(new HashSet<>());
         }
 
+        System.out.println(itemClient.clearItemsCache(priceDto.getItemId()));
         return PriceMapper.entityToDto(priceRepository.save(PriceMapper.dtoToEntity(priceDto)));
     }
 }
