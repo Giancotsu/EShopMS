@@ -247,10 +247,43 @@ public class ItemController {
         return new ResponseEntity<>(itemService.setItemCategory(itemId, category), HttpStatus.OK);
     }
 
+    @Operation(
+            description = "Remove item category",
+            summary = "Remove item category",
+            parameters = {
+                    @Parameter(
+                            name = "id",
+                            description = "Item ID filter",
+                            required = true
+                    )
+            },
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Category to remove to the item",
+                    required = true
+            ),
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "category removed",
+                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ItemDto.class))}
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Item not found",
+                            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorObj.class))}
+                    )
+            }
+    )
     @PostMapping(value = "/{id}/category/remove")
     public ResponseEntity<ItemDto> removeItemCategory(@PathVariable("id") Long itemId, @RequestBody ItemCategoryEntity category){
 
         return new ResponseEntity<>(itemService.removeItemCategory(itemId, category), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/clear-cache/{itemId}")
+    public ResponseEntity<String> clearItemsCache(@PathVariable("itemId") long itemId){
+        itemService.evictCache(itemId);
+        return new ResponseEntity<>("Cache cleared", HttpStatus.OK);
     }
 
 }
