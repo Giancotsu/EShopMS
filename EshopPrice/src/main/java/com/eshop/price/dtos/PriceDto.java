@@ -9,6 +9,7 @@ import java.util.Set;
 public class PriceDto {
 
     private long id;
+    private long itemId;
     private BigDecimal price;
     private Set<SaleDto> sales;
 }
