@@ -16,4 +16,5 @@ public interface ItemService {
     ItemDto setItemCategory(Long itemId, ItemCategoryEntity category);
     ItemDto removeItemCategory(Long itemId, ItemCategoryEntity category);
     List<ItemDto> getItemsByCategory(String categoryName);
+    public void evictCache(Long id);
 }
