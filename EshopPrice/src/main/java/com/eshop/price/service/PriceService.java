@@ -7,5 +7,5 @@ import java.math.BigDecimal;
 public interface PriceService {
 
     BigDecimal getPriceByItem(long itemId);
-    PriceDto setPriceToItem(PriceDto price, long itemId);
+    PriceDto setPriceToItem(long itemId, BigDecimal price);
 }
