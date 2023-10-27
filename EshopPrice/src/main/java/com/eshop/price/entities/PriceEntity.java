@@ -11,10 +11,8 @@ public class PriceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long priceId;
-
-    private BigDecimal price;
-
     private long itemId;
+    private BigDecimal price;
 
     //constructor
 
