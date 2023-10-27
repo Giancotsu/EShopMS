@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -101,11 +102,14 @@ public class ItemServiceImpl implements ItemService {
 
         System.err.println("ITEM CREATED:");
 
-        ItemEntity item = ItemConverter.itemDtoToitem(itemDto);
+        ItemEntity newItem = itemRepository.save(ItemConverter.itemDtoToitem(itemDto));
 
-        ItemEntity newItem = itemRepository.save(item);
+        BigDecimal price = itemDto.getPrice();
+        priceClient.setItemPrice(newItem.getItemId(), price);
 
-        return ItemConverter.itemToItemDto(newItem);
+        ItemDto response = ItemConverter.itemToItemDto(newItem);
+        response.setPrice(price);
+        return response;
     }
 
     @Override
