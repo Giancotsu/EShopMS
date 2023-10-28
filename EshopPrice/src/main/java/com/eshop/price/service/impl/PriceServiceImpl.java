@@ -24,10 +24,13 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public BigDecimal getPriceByItem(long itemId) {
+
         PriceEntity priceEntity = priceRepository.findPriceEntityByItemId(itemId);
+
         if(priceEntity==null){
             return BigDecimal.valueOf(999999999);
         }
+
         return priceEntity.getPrice();
     }
 
