@@ -37,19 +37,6 @@ public class ItemServiceImpl implements ItemService {
         this.priceClient = priceClient;
     }
 
-    BigDecimal getItemPrice(long itemId){
-
-        BigDecimal price = BigDecimal.valueOf(999999999);
-
-        try{
-            price = priceClient.getItemPrice(itemId);
-        }catch (FeignException exception){
-            System.err.println("OpenFeign Error: "+ exception.getLocalizedMessage());
-        }
-
-        return price;
-    }
-
     @Override
     @Cacheable
     public ItemResponse getAllItems(int pageNumber, int pageSize) {
@@ -64,8 +51,7 @@ public class ItemServiceImpl implements ItemService {
         List<ItemDto> itemsDto = new ArrayList<>();
 
         for(ItemEntity item: listOfItem){
-            ItemDto itemDto =ItemConverter.itemToItemDto(item);
-            itemDto.setPrice(this.getItemPrice(itemDto.getId()));
+            ItemDto itemDto = ItemConverter.itemToItemDto(item);
             itemsDto.add(itemDto);
         }
 
@@ -87,11 +73,8 @@ public class ItemServiceImpl implements ItemService {
         System.err.println("ITEM BY ID:");
 
         ItemEntity item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be found"));
-        ItemDto itemDtoReturned = ItemConverter.itemToItemDto(item);
 
-        itemDtoReturned.setPrice(priceClient.getItemPrice(itemDtoReturned.getId()));
-
-        return itemDtoReturned;
+        return ItemConverter.itemToItemDto(item);
     }
 
     @Override
@@ -104,17 +87,7 @@ public class ItemServiceImpl implements ItemService {
 
         List<ItemEntity> items = itemRepository.selItemsByCategory(filter);
 
-        List<ItemDto> itemsDto = new ArrayList<>();
-
-        for(ItemEntity item: items){
-            ItemDto itemDto = ItemConverter.itemToItemDto(item);
-            itemDto.setPrice(this.getItemPrice(itemDto.getId()));
-            itemsDto.add(itemDto);
-        }
-
-        return itemsDto;
-
-        //return items.stream().map(ItemConverter::itemToItemDto).toList();
+        return items.stream().map(ItemConverter::itemToItemDto).toList();
     }
 
     @Override
