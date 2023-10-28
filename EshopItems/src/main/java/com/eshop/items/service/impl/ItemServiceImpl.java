@@ -90,7 +90,17 @@ public class ItemServiceImpl implements ItemService {
 
         List<ItemEntity> items = itemRepository.selItemsByCategory(filter);
 
-        return items.stream().map(ItemConverter::itemToItemDto).toList();
+        List<ItemDto> itemsDto = new ArrayList<>();
+
+        for(ItemEntity item: items){
+            ItemDto itemDto = ItemConverter.itemToItemDto(item);
+            itemDto.setPrice(priceClient.getItemPrice(itemDto.getId()));
+            itemsDto.add(itemDto);
+        }
+
+        return itemsDto;
+
+        //return items.stream().map(ItemConverter::itemToItemDto).toList();
     }
 
     @Override
