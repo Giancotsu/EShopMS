@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.math.BigDecimal;
 
-@FeignClient(name = "EshopPrice", url = "localhost:9001")
+@FeignClient(name = "EshopPrice", url = "localhost:9001", configuration = OpenFeignConfig.class)
 public interface PriceClient {
 
     @GetMapping(value = "/api/price/item/{itemId}")
