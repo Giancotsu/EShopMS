@@ -9,12 +9,14 @@ import com.eshop.items.entities.ItemEntity;
 import com.eshop.items.openfeign.PriceClient;
 import com.eshop.items.repository.ItemRepository;
 import com.eshop.items.service.ItemService;
+import feign.FeignException;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -27,13 +29,25 @@ public class ItemServiceImpl implements ItemService {
 
     private final CacheManager cacheManager;
     private final ItemRepository itemRepository;
-
     private final PriceClient priceClient;
 
     public ItemServiceImpl(CacheManager cacheManager, ItemRepository itemRepository, PriceClient priceClient) {
         this.cacheManager = cacheManager;
         this.itemRepository = itemRepository;
         this.priceClient = priceClient;
+    }
+
+    BigDecimal getItemPrice(long itemId){
+
+        BigDecimal price = BigDecimal.valueOf(999999999);
+
+        try{
+            price = priceClient.getItemPrice(itemId);
+        }catch (FeignException exception){
+            System.err.println("OpenFeign Error: "+ exception.getLocalizedMessage());
+        }
+
+        return price;
     }
 
     @Override
@@ -51,7 +65,7 @@ public class ItemServiceImpl implements ItemService {
 
         for(ItemEntity item: listOfItem){
             ItemDto itemDto =ItemConverter.itemToItemDto(item);
-            itemDto.setPrice(priceClient.getItemPrice(itemDto.getId()));
+            itemDto.setPrice(this.getItemPrice(itemDto.getId()));
             itemsDto.add(itemDto);
         }
 
@@ -75,7 +89,7 @@ public class ItemServiceImpl implements ItemService {
         ItemEntity item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be found"));
         ItemDto itemDtoReturned = ItemConverter.itemToItemDto(item);
 
-        itemDtoReturned.setPrice(priceClient.getItemPrice(itemDtoReturned.getId()));
+        itemDtoReturned.setPrice(this.getItemPrice(itemDtoReturned.getId()));
 
         return itemDtoReturned;
     }
@@ -94,7 +108,7 @@ public class ItemServiceImpl implements ItemService {
 
         for(ItemEntity item: items){
             ItemDto itemDto = ItemConverter.itemToItemDto(item);
-            itemDto.setPrice(priceClient.getItemPrice(itemDto.getId()));
+            itemDto.setPrice(this.getItemPrice(itemDto.getId()));
             itemsDto.add(itemDto);
         }
 
@@ -140,11 +154,14 @@ public class ItemServiceImpl implements ItemService {
             throw new ItemNotFoundException("Item could not be updated");
         }
 
-        ItemEntity item = ItemConverter.itemDtoToitem(itemDto);
+        ItemEntity newItem = itemRepository.save(ItemConverter.itemDtoToitem(itemDto));
 
-        ItemEntity updatedItem = itemRepository.save(item);
+        BigDecimal price = itemDto.getPrice();
+        priceClient.setItemPrice(newItem.getItemId(), price);
 
-        return ItemConverter.itemToItemDto(updatedItem);
+        ItemDto response = ItemConverter.itemToItemDto(newItem);
+        response.setPrice(price);
+        return response;
     }
 
     @Override
