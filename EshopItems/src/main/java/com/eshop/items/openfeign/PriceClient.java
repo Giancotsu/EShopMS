@@ -14,8 +14,8 @@ import java.math.BigDecimal;
 public interface PriceClient {
 
     @GetMapping(value = "/api/price/item/{itemId}")
-    public BigDecimal getItemPrice(@PathVariable("itemId") long itemId);
+    BigDecimal getItemPrice(@PathVariable("itemId") long itemId);
 
     @PostMapping(value = "/api/price/set/{itemId}")
-    public void setItemPrice(@PathVariable("itemId") long itemId, @RequestBody BigDecimal price);
+    void setItemPrice(@PathVariable("itemId") long itemId, @RequestBody BigDecimal price);
 }
