@@ -89,7 +89,7 @@ public class ItemServiceImpl implements ItemService {
         ItemEntity item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be found"));
         ItemDto itemDtoReturned = ItemConverter.itemToItemDto(item);
 
-        itemDtoReturned.setPrice(this.getItemPrice(itemDtoReturned.getId()));
+        itemDtoReturned.setPrice(priceClient.getItemPrice(itemDtoReturned.getId()));
 
         return itemDtoReturned;
     }
