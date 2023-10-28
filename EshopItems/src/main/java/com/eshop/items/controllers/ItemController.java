@@ -88,7 +88,9 @@ public class ItemController {
     @GetMapping(value = "/category/{categoryName}")
     public ResponseEntity<List<ItemDto>> getItemsByCategory(@PathVariable("categoryName") String categoryName){
 
-        return new ResponseEntity<>(itemService.getItemsByCategory(categoryName), HttpStatus.OK);
+        List<ItemDto> items = itemService.getItemsByCategory(categoryName);
+        items.forEach(itemDto -> itemDto.setPrice(priceClient.getItemPrice(itemDto.getId())));
+        return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
     @Operation(
