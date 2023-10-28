@@ -4,6 +4,7 @@ import com.eshop.items.dto.ItemDto;
 import com.eshop.items.dto.ItemResponse;
 import com.eshop.items.exceptions.ErrorObj;
 import com.eshop.items.entities.ItemCategoryEntity;
+import com.eshop.items.openfeign.PriceClient;
 import com.eshop.items.service.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -25,9 +26,11 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
+    private final PriceClient priceClient;
 
-    public ItemController(ItemService itemService) {
+    public ItemController(ItemService itemService, PriceClient priceClient) {
         this.itemService = itemService;
+        this.priceClient = priceClient;
     }
 
     @Operation(
@@ -60,6 +63,7 @@ public class ItemController {
     ){
 
         ItemResponse itemResponse = itemService.getAllItems(pageNumber, pageSize);
+        itemResponse.getContent().forEach(itemDto -> itemDto.setPrice(priceClient.getItemPrice(itemDto.getId())));
         return new ResponseEntity<>(itemResponse, HttpStatus.OK);
     }
 
