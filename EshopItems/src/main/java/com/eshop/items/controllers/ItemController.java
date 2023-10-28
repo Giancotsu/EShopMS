@@ -116,7 +116,10 @@ public class ItemController {
     )
     @GetMapping(value = "/{id}")
     public ResponseEntity<ItemDto> getItemById(@PathVariable("id") long id){
-        return new ResponseEntity<>(itemService.getItemById(id), HttpStatus.OK);
+
+        ItemDto itemDto = itemService.getItemById(id);
+        itemDto.setPrice(priceClient.getItemPrice(itemDto.getId()));
+        return new ResponseEntity<>(itemDto, HttpStatus.OK);
     }
 
     @Operation(
