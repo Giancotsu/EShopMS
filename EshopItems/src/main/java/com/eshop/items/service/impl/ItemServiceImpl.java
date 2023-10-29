@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -101,8 +102,11 @@ public class ItemServiceImpl implements ItemService {
 
         ItemEntity newItem = itemRepository.save(ItemConverter.itemDtoToitem(itemDto));
 
+        Set<Long> itemCategoriesIds = new HashSet<>();
+        itemDto.getCategories().forEach(category -> itemCategoriesIds.add(category.getCategoryId()));
+
         BigDecimal price = itemDto.getPrice();
-        priceClient.setItemPrice(newItem.getItemId(), price);
+        priceClient.setItemPrice(newItem.getItemId(), price, itemCategoriesIds);
 
         ItemDto response = ItemConverter.itemToItemDto(newItem);
         response.setPrice(price);
@@ -129,8 +133,11 @@ public class ItemServiceImpl implements ItemService {
 
         ItemEntity newItem = itemRepository.save(ItemConverter.itemDtoToitem(itemDto));
 
+        Set<Long> itemCategoriesIds = new HashSet<>();
+        itemDto.getCategories().forEach(category -> itemCategoriesIds.add(category.getCategoryId()));
+
         BigDecimal price = itemDto.getPrice();
-        priceClient.setItemPrice(newItem.getItemId(), price);
+        priceClient.setItemPrice(newItem.getItemId(), price, itemCategoriesIds);
 
         ItemDto response = ItemConverter.itemToItemDto(newItem);
         response.setPrice(price);
