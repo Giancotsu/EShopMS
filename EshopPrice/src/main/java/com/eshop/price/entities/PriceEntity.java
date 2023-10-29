@@ -13,6 +13,7 @@ public class PriceEntity {
     private long priceId;
     private long itemId;
     private BigDecimal price;
+    private Set<Long> itemCategories;
 
     //constructor
 
