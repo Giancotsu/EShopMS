@@ -51,6 +51,14 @@ public class PriceEntity {
         this.itemId = itemId;
     }
 
+    public Set<Long> getItemCategories() {
+        return itemCategories;
+    }
+
+    public void setItemCategories(Set<Long> itemCategories) {
+        this.itemCategories = itemCategories;
+    }
+
     //relations
 
     @OneToMany(mappedBy = "price")
