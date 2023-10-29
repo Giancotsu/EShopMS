@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @FeignClient(name = "EshopPrice", url = "localhost:9001", configuration = {OpenFeignConfig.class})
 public interface PriceClient {
@@ -17,5 +18,5 @@ public interface PriceClient {
     BigDecimal getItemPrice(@PathVariable("itemId") long itemId);
 
     @PostMapping(value = "/api/price/set/{itemId}")
-    void setItemPrice(@PathVariable("itemId") long itemId, @RequestBody BigDecimal price);
+    void setItemPrice(@PathVariable("itemId") long itemId, @RequestBody BigDecimal price, Set<Long> itemCategories);
 }
