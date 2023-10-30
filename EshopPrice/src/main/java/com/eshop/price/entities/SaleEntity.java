@@ -2,16 +2,17 @@ package com.eshop.price.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity(name = "SALE")
 public class SaleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long saleId;
-
-    private int amount;
-
+    private String name;
     private String description;
+    private int amount;
 
     //constructor
 
@@ -33,12 +34,12 @@ public class SaleEntity {
         this.saleId = saleId;
     }
 
-    public int getAmount() {
-        return amount;
+    public String getName() {
+        return name;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -47,6 +48,14 @@ public class SaleEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     //relations
