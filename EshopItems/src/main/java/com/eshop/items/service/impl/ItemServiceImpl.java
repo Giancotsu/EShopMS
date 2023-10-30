@@ -2,6 +2,7 @@ package com.eshop.items.service.impl;
 
 import com.eshop.items.dto.ItemDto;
 import com.eshop.items.dto.ItemResponse;
+import com.eshop.items.dto.SetPriceCategoriesDto;
 import com.eshop.items.dto.converter.ItemConverter;
 import com.eshop.items.exceptions.ItemNotFoundException;
 import com.eshop.items.entities.ItemCategoryEntity;
@@ -102,11 +103,17 @@ public class ItemServiceImpl implements ItemService {
 
         ItemEntity newItem = itemRepository.save(ItemConverter.itemDtoToitem(itemDto));
 
+        BigDecimal price = itemDto.getPrice();
+
         Set<Long> itemCategoriesIds = new HashSet<>();
         itemDto.getCategories().forEach(category -> itemCategoriesIds.add(category.getCategoryId()));
 
-        BigDecimal price = itemDto.getPrice();
-        priceClient.setItemPrice(newItem.getItemId(), price, itemCategoriesIds);
+        SetPriceCategoriesDto priceRequest = new SetPriceCategoriesDto();
+        priceRequest.setItemId(newItem.getItemId());
+        priceRequest.setPrice(price);
+        priceRequest.setItemCategoriesId(itemCategoriesIds);
+
+        priceClient.setItemPriceAndCategories(priceRequest);
 
         ItemDto response = ItemConverter.itemToItemDto(newItem);
         response.setPrice(price);
@@ -137,7 +144,7 @@ public class ItemServiceImpl implements ItemService {
         itemDto.getCategories().forEach(category -> itemCategoriesIds.add(category.getCategoryId()));
 
         BigDecimal price = itemDto.getPrice();
-        priceClient.setItemPrice(newItem.getItemId(), price, itemCategoriesIds);
+        //priceClient.setItemPrice(newItem.getItemId(), price, itemCategoriesIds);
 
         ItemDto response = ItemConverter.itemToItemDto(newItem);
         response.setPrice(price);
