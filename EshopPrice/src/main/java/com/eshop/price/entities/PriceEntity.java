@@ -61,7 +61,9 @@ public class PriceEntity {
 
     //relations
 
-    @OneToMany(mappedBy = "price")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "priceSale", joinColumns = @JoinColumn(name = "pId", referencedColumnName = "priceId"),
+            inverseJoinColumns = @JoinColumn(name = "sId", referencedColumnName = "saleId"))
     private Set<SaleEntity> sales = new HashSet<>();
 
     public Set<SaleEntity> getSales() {
