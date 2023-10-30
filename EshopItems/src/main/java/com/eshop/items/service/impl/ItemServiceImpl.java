@@ -140,11 +140,17 @@ public class ItemServiceImpl implements ItemService {
 
         ItemEntity newItem = itemRepository.save(ItemConverter.itemDtoToitem(itemDto));
 
+        BigDecimal price = itemDto.getPrice();
+
         Set<Long> itemCategoriesIds = new HashSet<>();
         itemDto.getCategories().forEach(category -> itemCategoriesIds.add(category.getCategoryId()));
 
-        BigDecimal price = itemDto.getPrice();
-        //priceClient.setItemPrice(newItem.getItemId(), price, itemCategoriesIds);
+        SetPriceCategoriesDto priceRequest = new SetPriceCategoriesDto();
+        priceRequest.setItemId(newItem.getItemId());
+        priceRequest.setPrice(price);
+        priceRequest.setItemCategoriesId(itemCategoriesIds);
+
+        priceClient.setItemPriceAndCategories(priceRequest);
 
         ItemDto response = ItemConverter.itemToItemDto(newItem);
         response.setPrice(price);
