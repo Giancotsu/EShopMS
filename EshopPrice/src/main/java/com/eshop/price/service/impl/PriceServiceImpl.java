@@ -1,5 +1,6 @@
 package com.eshop.price.service.impl;
 
+import com.eshop.price.dtos.ItemClientRequestPriceCategory;
 import com.eshop.price.dtos.PriceDto;
 import com.eshop.price.dtos.mapper.PriceMapper;
 import com.eshop.price.entities.PriceEntity;
@@ -36,7 +37,7 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public PriceDto setPriceToItem(long itemId, BigDecimal price) {
-        if(itemId<0){throw new RuntimeException("Price could not be set");}
+        if(itemId<=0){throw new RuntimeException("Price could not be set");}
         PriceDto priceDto;
         PriceEntity priceEntity = priceRepository.findPriceEntityByItemId(itemId);
         if(priceEntity!=null){
@@ -52,4 +53,54 @@ public class PriceServiceImpl implements PriceService {
         System.out.println(itemClient.clearItemsCache(priceDto.getItemId()));
         return PriceMapper.entityToDto(priceRepository.save(PriceMapper.dtoToEntity(priceDto)));
     }
+
+    @Override
+    public PriceDto setItemPriceAndCategories(ItemClientRequestPriceCategory itemClientRequest) {
+
+        long itemId=itemClientRequest.getItemId();
+        if(itemId<=0)throw new RuntimeException("Price could not be set");
+
+        PriceEntity priceEntity = priceRepository.findPriceEntityByItemId(itemId);
+        if(priceEntity!=null){
+            priceEntity.setPrice(itemClientRequest.getPrice());
+            priceEntity.setItemCategoriesId(itemClientRequest.getItemCategoriesId());
+        }else{
+            priceEntity = new PriceEntity();
+            priceEntity.setItemId(itemClientRequest.getItemId());
+            priceEntity.setPrice(itemClientRequest.getPrice());
+            priceEntity.setItemCategoriesId(itemClientRequest.getItemCategoriesId());
+            priceEntity.setSales(new HashSet<>());
+        }
+
+        return PriceMapper.entityToDto(priceRepository.save(priceEntity));
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
