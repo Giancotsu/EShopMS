@@ -50,7 +50,6 @@ public class PriceServiceImpl implements PriceService {
             priceDto.setSales(new HashSet<>());
         }
 
-        System.out.println(itemClient.clearItemsCache(priceDto.getItemId()));
         return PriceMapper.entityToDto(priceRepository.save(PriceMapper.dtoToEntity(priceDto)));
     }
 
