@@ -9,5 +9,4 @@ public class SaleDto {
     private String name;
     private String description;
     private int amount;
-    private PriceDto price;
 }
