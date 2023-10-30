@@ -11,8 +11,8 @@ public class SaleMapper {
         SaleEntity sale = new SaleEntity();
         sale.setSaleId(saleDto.getId());
         sale.setAmount(saleDto.getAmount());
+        sale.setName(saleDto.getName());
         sale.setDescription(saleDto.getDescription());
-        sale.setPrice(PriceMapper.dtoToEntity(saleDto.getPrice()));
         return sale;
     }
 
@@ -20,8 +20,8 @@ public class SaleMapper {
         SaleDto saleDto = new SaleDto();
         saleDto.setId(sale.getSaleId());
         saleDto.setAmount(sale.getAmount());
+        saleDto.setName(sale.getName());
         saleDto.setDescription(sale.getDescription());
-        saleDto.setPrice(PriceMapper.entityToDto(sale.getPrice()));
         return saleDto;
     }
 }
