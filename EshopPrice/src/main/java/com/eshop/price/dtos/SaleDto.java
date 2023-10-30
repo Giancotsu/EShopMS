@@ -6,7 +6,8 @@ import lombok.Data;
 public class SaleDto {
 
     private long id;
-    private int amount;
+    private String name;
     private String description;
+    private int amount;
     private PriceDto price;
 }
