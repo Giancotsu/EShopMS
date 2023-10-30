@@ -13,7 +13,7 @@ public class PriceEntity {
     private long priceId;
     private long itemId;
     private BigDecimal price;
-    private Set<Long> itemCategories;
+    private Set<Long> itemCategoriesId;
 
     //constructor
 
@@ -51,12 +51,12 @@ public class PriceEntity {
         this.itemId = itemId;
     }
 
-    public Set<Long> getItemCategories() {
-        return itemCategories;
+    public Set<Long> getItemCategoriesId() {
+        return itemCategoriesId;
     }
 
-    public void setItemCategories(Set<Long> itemCategories) {
-        this.itemCategories = itemCategories;
+    public void setItemCategoriesId(Set<Long> itemCategoriesId) {
+        this.itemCategoriesId = itemCategoriesId;
     }
 
     //relations
