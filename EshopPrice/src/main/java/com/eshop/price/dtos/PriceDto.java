@@ -13,6 +13,5 @@ public class PriceDto {
     private long itemId;
     @JsonFormat(shape=JsonFormat.Shape.STRING)
     private BigDecimal price;
-    private Set<Long> itemCategories;
     private Set<SaleDto> sales;
 }
