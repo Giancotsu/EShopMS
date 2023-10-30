@@ -2,7 +2,9 @@ package com.eshop.items.openfeign;
 
 
 import com.eshop.items.config.OpenFeignConfig;
+import com.eshop.items.dto.SetPriceCategoriesDto;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,5 +20,8 @@ public interface PriceClient {
     BigDecimal getItemPrice(@PathVariable("itemId") long itemId);
 
     @PostMapping(value = "/api/price/set/{itemId}")
-    void setItemPrice(@PathVariable("itemId") long itemId, @RequestBody BigDecimal price, Set<Long> itemCategories);
+    void setItemPrice(@PathVariable("itemId") long itemId, @RequestBody BigDecimal price);
+
+    @PostMapping(value = "/api/price/set/enhanced")
+    void setItemPriceAndCategories(@RequestBody SetPriceCategoriesDto requestBody);
 }
