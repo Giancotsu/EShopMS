@@ -71,4 +71,19 @@ public class SaleEntity {
     public void setPrice(PriceEntity price) {
         this.price = price;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SaleEntity that = (SaleEntity) o;
+
+        return getSaleId() == that.getSaleId();
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (getSaleId() ^ (getSaleId() >>> 32));
+    }
 }
