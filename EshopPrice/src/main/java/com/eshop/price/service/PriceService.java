@@ -12,5 +12,5 @@ public interface PriceService {
     BigDecimal getPriceByItem(long itemId);
     PriceDto setPriceToItem(long itemId, BigDecimal price);
     PriceDto setItemPriceAndCategories(ItemClientRequestPriceCategory itemClientRequest);
-    PriceDto setPriceSaleSingle(long priceId, SaleDto saleDto);
+    PriceDto setPriceSaleSingleByPriceId(long priceId, SaleDto saleDto);
 }
