@@ -59,7 +59,7 @@ public class ItemController {
     @GetMapping
     public ResponseEntity<ItemResponse> getAllItems(
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
+            @RequestParam(value = "pageSize", defaultValue = "50", required = false) int pageSize
     ){
 
         ItemResponse itemResponse = itemService.getAllItems(pageNumber, pageSize);
