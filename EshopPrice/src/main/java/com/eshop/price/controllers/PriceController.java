@@ -36,7 +36,7 @@ public class PriceController {
     }
 
     @PostMapping(value = "/{priceId}/sale")
-    public ResponseEntity<PriceDto> setPriceSaleSingle(@PathVariable("priceId") long priceId, @RequestBody SaleDto saleDto){
-        return new ResponseEntity<>(priceService.setPriceSaleSingle(priceId, saleDto), HttpStatus.OK);
+    public ResponseEntity<PriceDto> setPriceSaleSingleByPriceId(@PathVariable("priceId") long priceId, @RequestBody SaleDto saleDto){
+        return new ResponseEntity<>(priceService.setPriceSaleSingleByPriceId(priceId, saleDto), HttpStatus.OK);
     }
 }
