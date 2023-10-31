@@ -189,7 +189,7 @@ public class ItemServiceImpl implements ItemService {
         ItemEntity item = itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFoundException("Item not found"));
 
         Set<ItemCategoryEntity> categories = item.getCategories();
-        System.err.println(categories.remove(category));
+        categories.remove(category);
         item.setCategories(categories);
 
         this.evictCache(itemId);
