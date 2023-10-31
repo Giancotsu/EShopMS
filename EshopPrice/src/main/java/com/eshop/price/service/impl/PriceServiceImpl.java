@@ -104,6 +104,20 @@ public class PriceServiceImpl implements PriceService {
         priceDto.setSales(sales);
         return PriceMapper.entityToDto(priceRepository.save(PriceMapper.dtoToEntity(priceDto)));
     }
+
+    @Override
+    public String removeSaleSingleByItemId(long itemId, SaleDto saleDto) {
+
+        PriceDto priceDto = PriceMapper.entityToDto(priceRepository.findPriceEntityByItemId(itemId));
+        Set<SaleDto> sales = priceDto.getSales();
+        if(!sales.contains(saleDto)){
+            return String.format("Sale %d not present", saleDto.getId());
+        }
+        sales.remove(saleDto);
+        priceDto.setSales(sales);
+        PriceMapper.entityToDto(priceRepository.save(PriceMapper.dtoToEntity(priceDto)));
+        return String.format("Sale %d removed", saleDto.getId());
+    }
 }
 
 
