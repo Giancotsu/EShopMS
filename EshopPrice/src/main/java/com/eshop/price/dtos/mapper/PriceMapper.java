@@ -14,6 +14,7 @@ public class PriceMapper {
         price.setItemId(priceDto.getItemId());
         price.setPrice(priceDto.getPrice());
         price.setSales(priceDto.getSales().stream().map(SaleMapper::dtoToEntity).collect(Collectors.toSet()));
+        price.setItemCategoriesId(priceDto.getItemCategoriesId());
         return price;
     }
 
@@ -24,6 +25,7 @@ public class PriceMapper {
         priceDto.setItemId(price.getItemId());
         priceDto.setPrice(price.getPrice());
         priceDto.setSales(price.getSales().stream().map(SaleMapper::entityToDto).collect(Collectors.toSet()));
+        priceDto.setItemCategoriesId(price.getItemCategoriesId());
         return priceDto;
     }
 }
