@@ -94,6 +94,16 @@ public class PriceServiceImpl implements PriceService {
         priceDto.setSales(sales);
         return PriceMapper.entityToDto(priceRepository.save(PriceMapper.dtoToEntity(priceDto)));
     }
+
+    @Override
+    public PriceDto setPriceSaleSingleByItemId(long itemId, SaleDto saleDto) {
+
+        PriceDto priceDto = PriceMapper.entityToDto(priceRepository.findPriceEntityByItemId(itemId));
+        Set<SaleDto> sales = priceDto.getSales();
+        sales.add(saleDto);
+        priceDto.setSales(sales);
+        return PriceMapper.entityToDto(priceRepository.save(PriceMapper.dtoToEntity(priceDto)));
+    }
 }
 
 
