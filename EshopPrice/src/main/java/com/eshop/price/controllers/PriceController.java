@@ -2,6 +2,7 @@ package com.eshop.price.controllers;
 
 import com.eshop.price.dtos.ItemClientRequestPriceCategory;
 import com.eshop.price.dtos.PriceDto;
+import com.eshop.price.dtos.SaleDto;
 import com.eshop.price.service.impl.PriceServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +33,10 @@ public class PriceController {
     @PostMapping(value = "/set/enhanced")
     public ResponseEntity<PriceDto> setItemPriceAndCategories(@RequestBody ItemClientRequestPriceCategory requestBody){
         return new ResponseEntity<>(priceService.setItemPriceAndCategories(requestBody), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/{priceId}/sale")
+    public ResponseEntity<PriceDto> setPriceSaleSingle(@PathVariable("priceId") long priceId, @RequestBody SaleDto saleDto){
+        return new ResponseEntity<>(priceService.setPriceSaleSingle(priceId, saleDto), HttpStatus.OK);
     }
 }
