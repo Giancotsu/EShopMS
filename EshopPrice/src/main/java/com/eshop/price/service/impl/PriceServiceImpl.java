@@ -2,6 +2,7 @@ package com.eshop.price.service.impl;
 
 import com.eshop.price.dtos.ItemClientRequestPriceCategory;
 import com.eshop.price.dtos.PriceDto;
+import com.eshop.price.dtos.SaleDto;
 import com.eshop.price.dtos.mapper.PriceMapper;
 import com.eshop.price.entities.PriceEntity;
 import com.eshop.price.openfeign.ItemClient;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class PriceServiceImpl implements PriceService {
@@ -21,6 +23,11 @@ public class PriceServiceImpl implements PriceService {
     public PriceServiceImpl(PriceRepository priceRepository, ItemClient itemClient) {
         this.priceRepository = priceRepository;
         this.itemClient = itemClient;
+    }
+
+    @Override
+    public PriceDto getPriceById(long priceId) {
+        return PriceMapper.entityToDto(priceRepository.findById(priceId).orElseThrow(() -> new RuntimeException("Price could not be found")));
     }
 
     @Override
@@ -72,6 +79,16 @@ public class PriceServiceImpl implements PriceService {
         }
 
         return PriceMapper.entityToDto(priceRepository.save(priceEntity));
+    }
+
+    @Override
+    public PriceDto setPriceSaleSingle(long priceId, SaleDto saleDto) {
+
+        PriceDto priceDto = getPriceById(priceId);
+        Set<SaleDto> sales = priceDto.getSales();
+        sales.add(saleDto);
+        priceDto.setSales(sales);
+        return PriceMapper.entityToDto(priceRepository.save(PriceMapper.dtoToEntity(priceDto)));
     }
 }
 
