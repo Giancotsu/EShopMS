@@ -44,4 +44,9 @@ public class PriceController {
     public ResponseEntity<PriceDto> setPriceSaleSingleByItemId(@PathVariable("itemId") long itemId, @RequestBody SaleDto saleDto){
         return new ResponseEntity<>(priceService.setPriceSaleSingleByItemId(itemId, saleDto), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/item/{itemId}/remove/sale")
+    public ResponseEntity<String> removePriceSaleSingleByItemId(@PathVariable("itemId") long itemId, @RequestBody SaleDto saleDto){
+        return new ResponseEntity<>(priceService.removeSaleSingleByItemId(itemId, saleDto), HttpStatus.OK);
+    }
 }
