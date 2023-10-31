@@ -42,6 +42,10 @@ public class PriceServiceImpl implements PriceService {
         return priceEntity.getPrice();
     }
 
+    public PriceDto getPriceDtoByItem(long itemId){
+        return PriceMapper.entityToDto(priceRepository.findPriceEntityByItemId(itemId));
+    }
+
     @Override
     public PriceDto setPriceToItem(long itemId, BigDecimal price) {
         if(itemId<=0){throw new RuntimeException("Price could not be set");}
@@ -82,7 +86,7 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public PriceDto setPriceSaleSingle(long priceId, SaleDto saleDto) {
+    public PriceDto setPriceSaleSingleByPriceId(long priceId, SaleDto saleDto) {
 
         PriceDto priceDto = getPriceById(priceId);
         Set<SaleDto> sales = priceDto.getSales();
