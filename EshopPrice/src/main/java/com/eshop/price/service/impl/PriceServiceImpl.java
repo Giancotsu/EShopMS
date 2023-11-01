@@ -5,6 +5,9 @@ import com.eshop.price.dtos.PriceDto;
 import com.eshop.price.dtos.SaleDto;
 import com.eshop.price.dtos.mapper.PriceMapper;
 import com.eshop.price.entities.PriceEntity;
+import com.eshop.price.entities.SaleEntity;
+import com.eshop.price.exceptions.PriceNotFoundException;
+import com.eshop.price.exceptions.SaleNotFoundException;
 import com.eshop.price.openfeign.ItemClient;
 import com.eshop.price.repositories.PriceRepository;
 import com.eshop.price.repositories.SaleRepository;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -30,13 +34,13 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public PriceDto getPriceById(long priceId) {
-        return PriceMapper.entityToDto(priceRepository.findById(priceId).orElseThrow(() -> new RuntimeException("Price could not be found")));
+        return PriceMapper.entityToDto(priceRepository.findById(priceId).orElseThrow(() -> new PriceNotFoundException("Price could not be found")));
     }
 
     @Override
     public BigDecimal getPriceByItem(long itemId) {
 
-        PriceEntity priceEntity = priceRepository.findPriceEntityByItemId(itemId).orElseThrow(()->new RuntimeException("Item not found"));
+        PriceEntity priceEntity = priceRepository.findPriceEntityByItemId(itemId).orElseThrow(()->new PriceNotFoundException("Price could not be found"));
 
         if(priceEntity==null){
             return BigDecimal.valueOf(999999999);
@@ -46,14 +50,14 @@ public class PriceServiceImpl implements PriceService {
     }
 
     public PriceDto getPriceDtoByItem(long itemId){
-        return PriceMapper.entityToDto(priceRepository.findPriceEntityByItemId(itemId).orElseThrow(()->new RuntimeException("Item not found")));
+        return PriceMapper.entityToDto(priceRepository.findPriceEntityByItemId(itemId).orElseThrow(()->new PriceNotFoundException("Price could not be found")));
     }
 
     @Override
     public PriceDto setPriceToItem(long itemId, BigDecimal price) {
         if(itemId<=0){throw new RuntimeException("Price could not be set");}
         PriceDto priceDto;
-        PriceEntity priceEntity = priceRepository.findPriceEntityByItemId(itemId).orElseThrow(()->new RuntimeException("Item not found"));
+        PriceEntity priceEntity = priceRepository.findPriceEntityByItemId(itemId).orElseThrow(()->new PriceNotFoundException("Price could not be found"));
         if(priceEntity!=null){
             priceDto = PriceMapper.entityToDto(priceEntity);
             priceDto.setPrice(price);
@@ -73,7 +77,7 @@ public class PriceServiceImpl implements PriceService {
         long itemId=itemClientRequest.getItemId();
         if(itemId<=0)throw new RuntimeException("Price could not be set");
 
-        PriceEntity priceEntity = priceRepository.findPriceEntityByItemId(itemId).orElseThrow(()->new RuntimeException("Item not found"));
+        PriceEntity priceEntity = priceRepository.findPriceEntityByItemId(itemId).orElseThrow(()->new PriceNotFoundException("Price could not be found"));
         if(priceEntity!=null){
             priceEntity.setPrice(itemClientRequest.getPrice());
             priceEntity.setItemCategoriesId(itemClientRequest.getItemCategoriesId());
@@ -91,7 +95,7 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public PriceDto setPriceSaleSingleByPriceId(long priceId, SaleDto saleDto) {
 
-        saleRepository.findById(saleDto.getId()).orElseThrow(()->new RuntimeException("Sale not found"));
+        saleRepository.findById(saleDto.getId()).orElseThrow(()->new SaleNotFoundException("Sale could not be found"));
         PriceDto priceDto = getPriceById(priceId);
         Set<SaleDto> sales = priceDto.getSales();
         sales.add(saleDto);
@@ -102,8 +106,8 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public PriceDto setPriceSaleSingleByItemId(long itemId, SaleDto saleDto) {
 
-        saleRepository.findById(saleDto.getId()).orElseThrow(()->new RuntimeException("Sale not found"));
-        PriceDto priceDto = PriceMapper.entityToDto(priceRepository.findPriceEntityByItemId(itemId).orElseThrow(()->new RuntimeException("Item not found")));
+        saleRepository.findById(saleDto.getId()).orElseThrow(()->new SaleNotFoundException("Sale could not be found"));
+        PriceDto priceDto = PriceMapper.entityToDto(priceRepository.findPriceEntityByItemId(itemId).orElseThrow(()->new PriceNotFoundException("Price could not be found")));
         Set<SaleDto> sales = priceDto.getSales();
         sales.add(saleDto);
         priceDto.setSales(sales);
@@ -113,7 +117,7 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public String removeSaleSingleByItemId(long itemId, SaleDto saleDto) {
 
-        PriceDto priceDto = PriceMapper.entityToDto(priceRepository.findPriceEntityByItemId(itemId).orElseThrow(()->new RuntimeException("Item not found")));
+        PriceDto priceDto = PriceMapper.entityToDto(priceRepository.findPriceEntityByItemId(itemId).orElseThrow(()->new PriceNotFoundException("Price could not be found")));
         Set<SaleDto> sales = priceDto.getSales();
         if(!sales.contains(saleDto)){
             return String.format("Sale %d not present", saleDto.getId());
@@ -123,6 +127,20 @@ public class PriceServiceImpl implements PriceService {
         PriceMapper.entityToDto(priceRepository.save(PriceMapper.dtoToEntity(priceDto)));
         return String.format("Sale %d removed", saleDto.getId());
     }
+
+    @Override
+    public String removeSale(long saleId) {
+        SaleEntity sale = saleRepository.findById(saleId).orElseThrow(()-> new SaleNotFoundException("Sale could not be found"));
+        List<PriceEntity> allPrice = priceRepository.findAll();
+        allPrice.forEach(price -> {
+            price.getSales().remove(sale);
+            priceRepository.save(price);
+        });
+        saleRepository.deleteById(saleId);
+        return "sale removed";
+    }
+
+
 }
 
 
