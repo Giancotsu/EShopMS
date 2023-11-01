@@ -15,4 +15,5 @@ public interface PriceService {
     PriceDto setPriceSaleSingleByPriceId(long priceId, SaleDto saleDto);
     PriceDto setPriceSaleSingleByItemId(long itemId, SaleDto saleDto);
     String removeSaleSingleByItemId(long itemId, SaleDto saleDto);
+    String removeSale(long saleId);
 }
