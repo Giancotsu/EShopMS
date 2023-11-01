@@ -8,17 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "iva")
+@RequestMapping(value = "/api/iva")
 public class IvaController {
 
-    private final ApplicationConfigs appConf;
 
-    public IvaController(ApplicationConfigs appConf) {
-        this.appConf = appConf;
-    }
-
-    @GetMapping
-    public ResponseEntity<Integer> getIva(){
-        return new ResponseEntity<>(appConf.getIva(), HttpStatus.OK);
-    }
 }
