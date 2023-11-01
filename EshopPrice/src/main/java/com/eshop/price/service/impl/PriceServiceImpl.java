@@ -140,6 +140,17 @@ public class PriceServiceImpl implements PriceService {
         return "sale removed";
     }
 
+    @Override
+    public String removeSaleFromSinglePrice(long itemId, long saleId) {
+        SaleEntity sale = saleRepository.findById(saleId).orElseThrow(()-> new SaleNotFoundException("Sale could not be found"));
+        PriceEntity price = priceRepository.findPriceEntityByItemId(itemId).orElseThrow(()-> new PriceNotFoundException("Price could not be found"));
+
+        price.getSales().remove(sale);
+        priceRepository.save(price);
+
+        return "sale removed";
+    }
+
 
 }
 
