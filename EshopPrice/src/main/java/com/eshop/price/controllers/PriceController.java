@@ -49,4 +49,9 @@ public class PriceController {
     public ResponseEntity<String> removePriceSaleSingleByItemId(@PathVariable("itemId") long itemId, @RequestBody SaleDto saleDto){
         return new ResponseEntity<>(priceService.removeSaleSingleByItemId(itemId, saleDto), HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "/remove/sale/{saleId}")
+    public ResponseEntity<String> removeSale(@PathVariable("saleId") long saleId){
+        return new ResponseEntity<>(priceService.removeSale(saleId), HttpStatus.OK);
+    }
 }
