@@ -15,7 +15,6 @@ public class SaleServiceImpl implements SaleService {
         this.saleRepository = saleRepository;
     }
 
-
     @Override
     public SaleDto createSale(SaleDto saleDto) {
         return SaleMapper.entityToDto(saleRepository.save(SaleMapper.dtoToEntity(saleDto)));
