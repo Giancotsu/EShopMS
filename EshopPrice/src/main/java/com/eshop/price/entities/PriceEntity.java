@@ -1,6 +1,8 @@
 package com.eshop.price.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -74,6 +76,15 @@ public class PriceEntity {
         this.sales = sales;
     }
 
-    @OneToMany(mappedBy = "price", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<IvaEntity> iva;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ivaId")
+    private IvaEntity iva;
+
+    public IvaEntity getIva() {
+        return iva;
+    }
+
+    public void setIva(IvaEntity iva) {
+        this.iva = iva;
+    }
 }
