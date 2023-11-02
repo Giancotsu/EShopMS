@@ -1,10 +1,12 @@
 package com.eshop.price.entities;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 @Entity(name = "IVA")
 public class IvaEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ivaId;
     private int value;
 
@@ -30,4 +32,9 @@ public class IvaEntity {
     public void setValue(int value) {
         this.value = value;
     }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "priceId")
+    private PriceEntity price;
+
 }
