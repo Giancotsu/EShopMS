@@ -73,4 +73,7 @@ public class PriceEntity {
     public void setSales(Set<SaleEntity> sales) {
         this.sales = sales;
     }
+
+    @OneToMany(mappedBy = "price", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<IvaEntity> iva;
 }
