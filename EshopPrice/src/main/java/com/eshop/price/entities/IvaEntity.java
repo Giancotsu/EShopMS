@@ -1,6 +1,11 @@
 package com.eshop.price.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.ToString;
+
+import java.util.Set;
 
 @Entity(name = "IVA")
 public class IvaEntity {
@@ -33,8 +38,14 @@ public class IvaEntity {
         this.value = value;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "priceId")
-    private PriceEntity price;
+    @OneToMany(mappedBy = "iva")
+    private Set<PriceEntity> prices;
 
+    public Set<PriceEntity> getPrices() {
+        return prices;
+    }
+
+    public void setPrices(Set<PriceEntity> prices) {
+        this.prices = prices;
+    }
 }
