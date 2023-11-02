@@ -4,11 +4,12 @@ import com.eshop.price.dtos.ItemClientRequestPriceCategory;
 import com.eshop.price.dtos.PriceDto;
 import com.eshop.price.dtos.SaleDto;
 import com.eshop.price.dtos.mapper.PriceMapper;
+import com.eshop.price.entities.IvaEntity;
 import com.eshop.price.entities.PriceEntity;
 import com.eshop.price.entities.SaleEntity;
 import com.eshop.price.exceptions.PriceNotFoundException;
 import com.eshop.price.exceptions.SaleNotFoundException;
-import com.eshop.price.openfeign.ItemClient;
+import com.eshop.price.repositories.IvaRepository;
 import com.eshop.price.repositories.PriceRepository;
 import com.eshop.price.repositories.SaleRepository;
 import com.eshop.price.service.PriceService;
@@ -24,12 +25,12 @@ public class PriceServiceImpl implements PriceService {
 
     private final PriceRepository priceRepository;
     private final SaleRepository saleRepository;
-    private final ItemClient itemClient;
+    private final IvaRepository ivaRepository;
 
-    public PriceServiceImpl(PriceRepository priceRepository, SaleRepository saleRepository, ItemClient itemClient) {
+    public PriceServiceImpl(PriceRepository priceRepository, SaleRepository saleRepository, IvaRepository ivaRepository) {
         this.priceRepository = priceRepository;
         this.saleRepository = saleRepository;
-        this.itemClient = itemClient;
+        this.ivaRepository = ivaRepository;
     }
 
     @Override
@@ -77,8 +78,9 @@ public class PriceServiceImpl implements PriceService {
         long itemId=itemClientRequest.getItemId();
         if(itemId<=0)throw new RuntimeException("Price could not be set");
 
-        PriceEntity priceEntity = priceRepository.findPriceEntityByItemId(itemId).orElseThrow(()->new PriceNotFoundException("Price could not be found"));
-        if(priceEntity!=null){
+        PriceEntity priceEntity;
+        if(priceRepository.findPriceEntityByItemId(itemId).isPresent()){
+            priceEntity = priceRepository.findPriceEntityByItemId(itemId).get();
             priceEntity.setPrice(itemClientRequest.getPrice());
             priceEntity.setItemCategoriesId(itemClientRequest.getItemCategoriesId());
         }else{
@@ -89,7 +91,9 @@ public class PriceServiceImpl implements PriceService {
             priceEntity.setSales(new HashSet<>());
         }
 
-        return PriceMapper.entityToDto(priceRepository.save(priceEntity));
+        PriceDto priceDto = PriceMapper.entityToDto(priceRepository.save(priceEntity));
+        this.setIva(priceDto);
+        return priceDto;
     }
 
     @Override
@@ -149,6 +153,44 @@ public class PriceServiceImpl implements PriceService {
         priceRepository.save(price);
 
         return "sale removed";
+    }
+
+    private int setIva(PriceDto price){
+
+        IvaEntity iva;
+
+        Set<Long> categories = price.getItemCategoriesId();
+        long category=0;
+
+        if(categories.size()==1){
+            category = categories.stream().findFirst().get();
+        }
+
+        switch ((int) category) {
+            case 1 -> {
+                iva = ivaRepository.selIvaByValue(4).orElseThrow(()-> new RuntimeException("Iva not found"));
+                Set<PriceEntity> prices = iva.getPrices();
+                prices.add(PriceMapper.dtoToEntity(price));
+                price.setIva(iva);
+            }
+            case 2 -> {
+                iva = ivaRepository.selIvaByValue(5).orElseThrow(()-> new RuntimeException("Iva not found"));
+                price.setIva(iva);
+            }
+            case 3 -> {
+                iva = ivaRepository.selIvaByValue(10).orElseThrow(()-> new RuntimeException("Iva not found"));
+                price.setIva(iva);
+            }
+            default -> {
+                iva = ivaRepository.selIvaByValue(22).orElseThrow(()-> new RuntimeException("Iva not found"));
+                price.setIva(iva);
+            }
+        };
+
+        System.err.println(PriceMapper.dtoToEntity(price));
+        priceRepository.save(PriceMapper.dtoToEntity(price));
+        ivaRepository.save(iva);
+        return iva.getValue();
     }
 
 
