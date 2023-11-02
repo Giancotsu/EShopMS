@@ -1,5 +1,6 @@
 package com.eshop.price.dtos;
 
+import com.eshop.price.entities.IvaEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -15,4 +16,5 @@ public class PriceDto {
     private BigDecimal price;
     private Set<SaleDto> sales;
     private Set<Long> itemCategoriesId;
+    private IvaEntity iva;
 }
