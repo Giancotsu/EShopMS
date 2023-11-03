@@ -1,6 +1,5 @@
 package com.eshop.price.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -76,7 +75,7 @@ public class PriceEntity {
         this.sales = sales;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ivaId")
     private IvaEntity iva;
 
