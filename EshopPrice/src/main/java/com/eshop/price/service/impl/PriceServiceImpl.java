@@ -187,7 +187,7 @@ public class PriceServiceImpl implements PriceService {
             }
         };
 
-        System.err.println(PriceMapper.dtoToEntity(price));
+        PriceMapper.dtoToEntity(price);
         priceRepository.save(PriceMapper.dtoToEntity(price));
         ivaRepository.save(iva);
         return iva.getValue();
