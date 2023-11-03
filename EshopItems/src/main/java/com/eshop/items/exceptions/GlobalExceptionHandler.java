@@ -26,13 +26,22 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({PriceServiceNotAvailableException.class})
-    public ResponseEntity<ErrorObj> handleProductServiceNotAvailableException(PriceServiceNotAvailableException exception, WebRequest request) {
+    public ResponseEntity<ErrorObj> handlePriceServiceNotAvailableException(PriceServiceNotAvailableException exception, WebRequest request) {
 
         return new ResponseEntity<>(new ErrorObj(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), request.getDescription(false)), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler({PriceNotFoundException.class})
-    public ResponseEntity<ErrorObj> handleProductNotFoundException(PriceNotFoundException exception, WebRequest request) {
+    public ResponseEntity<ErrorObj> handlePriceNotFoundException(PriceNotFoundException exception, WebRequest request) {
+        return new ResponseEntity<>(new ErrorObj(
+                HttpStatus.NOT_FOUND,
+                exception.getMessage(),
+                request.getDescription(false)),
+                HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({CategoryNotFoundException.class})
+    public ResponseEntity<ErrorObj> handleCategoryNotFoundException(CategoryNotFoundException exception, WebRequest request) {
         return new ResponseEntity<>(new ErrorObj(
                 HttpStatus.NOT_FOUND,
                 exception.getMessage(),
