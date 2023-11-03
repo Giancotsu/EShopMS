@@ -2,8 +2,6 @@ package com.eshop.price.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
-
 @Entity(name = "SALE")
 public class SaleEntity {
 
