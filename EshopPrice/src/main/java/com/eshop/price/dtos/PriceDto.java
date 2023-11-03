@@ -2,6 +2,7 @@ package com.eshop.price.dtos;
 
 import com.eshop.price.entities.IvaEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -16,5 +17,6 @@ public class PriceDto {
     private BigDecimal price;
     private Set<SaleDto> sales;
     private Set<Long> itemCategoriesId;
+    @JsonManagedReference
     private IvaEntity iva;
 }
