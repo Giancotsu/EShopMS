@@ -1,14 +1,13 @@
 package com.eshop.price.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity(name = "IVA")
-public class IvaEntity {
+public class IvaEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +37,7 @@ public class IvaEntity {
         this.value = value;
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "iva")
     private Set<PriceEntity> prices;
 
