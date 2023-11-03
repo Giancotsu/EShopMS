@@ -99,7 +99,7 @@ public class ItemServiceImpl implements ItemService {
     })
     public ItemDto createItem(ItemDto itemDto) {
 
-        System.err.println("ITEM CREATED:");
+        priceClient.isOn();
 
         ItemEntity newItem = itemRepository.save(ItemConverter.itemDtoToitem(itemDto));
 
@@ -117,6 +117,7 @@ public class ItemServiceImpl implements ItemService {
 
         ItemDto response = ItemConverter.itemToItemDto(newItem);
         response.setPrice(price);
+        System.err.println("ITEM CREATED:");
         return response;
     }
 
