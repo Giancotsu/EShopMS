@@ -131,7 +131,7 @@ public class ItemServiceImpl implements ItemService {
     })
     public ItemDto updateItem(ItemDto itemDto, long id) {
 
-        System.err.println("ITEM UPDATED:");
+        priceClient.isOn();
 
         itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be updated"));
 
@@ -155,6 +155,7 @@ public class ItemServiceImpl implements ItemService {
 
         ItemDto response = ItemConverter.itemToItemDto(newItem);
         response.setPrice(price);
+        System.err.println("ITEM UPDATED:");
         return response;
     }
 
