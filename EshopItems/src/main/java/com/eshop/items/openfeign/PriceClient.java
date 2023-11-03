@@ -14,6 +14,9 @@ import java.math.BigDecimal;
 @FeignClient(name = "EshopPrice", url = "localhost:9001", configuration = {OpenFeignConfig.class})
 public interface PriceClient {
 
+    @GetMapping(value = "/price-service/is-on")
+    boolean isOn();
+
     @GetMapping(value = "/api/price/item/{itemId}")
     BigDecimal getItemPrice(@PathVariable("itemId") long itemId);
 
