@@ -47,6 +47,16 @@ public class PriceController {
         return new ResponseEntity<>(priceService.setPriceSaleSingleByItemId(itemId, saleDto), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/sale/{saleId}/category/{categoryId}")
+    public ResponseEntity<List<PriceDto>> setPriceSaleByCategory(@PathVariable("saleId") long saleId, @PathVariable("categoryId") long categoryId){
+        return new ResponseEntity<>(priceService.setPriceSaleByCategory(saleId, categoryId), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/sale/{saleId}/all")
+    public ResponseEntity<List<PriceDto>> setPriceSaleAll(@PathVariable("saleId") long saleId){
+        return new ResponseEntity<>(priceService.setPriceSaleAll(saleId), HttpStatus.OK);
+    }
+
     @PostMapping(value = "/item/{itemId}/remove/sale")
     public ResponseEntity<String> removePriceSaleSingleByItemId(@PathVariable("itemId") long itemId, @RequestBody SaleDto saleDto){
         return new ResponseEntity<>(priceService.removeSaleSingleByItemId(itemId, saleDto), HttpStatus.OK);
@@ -62,8 +72,5 @@ public class PriceController {
         return new ResponseEntity<>(priceService.removeSaleFromSinglePrice(itemId, saleId), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/sale/{saleId}/category/{categoryId}")
-    public ResponseEntity<List<PriceDto>> setPriceSaleByCategory(@PathVariable("saleId") long saleId, @PathVariable("categoryId") long categoryId){
-        return new ResponseEntity<>(priceService.setPriceSaleByCategory(saleId, categoryId), HttpStatus.OK);
-    }
+
 }
