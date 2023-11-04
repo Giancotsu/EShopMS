@@ -32,4 +32,16 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errorObj, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<ErrorObj> handleCategoryNotFoundException(CategoryNotFoundException exception, WebRequest request){
+
+        ErrorObj errorObj = new ErrorObj(
+                HttpStatus.NOT_FOUND,
+                exception.getMessage(),
+                request.getDescription(false)
+        );
+
+        return new ResponseEntity<>(errorObj, HttpStatus.NOT_FOUND);
+    }
 }
