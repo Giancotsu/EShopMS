@@ -15,8 +15,9 @@ public interface PriceService {
     PriceDto setItemPriceAndCategories(ItemClientRequestPriceCategory itemClientRequest);
     PriceDto setPriceSaleSingleByPriceId(long priceId, SaleDto saleDto);
     PriceDto setPriceSaleSingleByItemId(long itemId, SaleDto saleDto);
+    List<PriceDto> setPriceSaleByCategory(long saleId, long category);
+    List<PriceDto> setPriceSaleAll(long saleId);
     String removeSaleSingleByItemId(long itemId, SaleDto saleDto);
     String removeSale(long saleId);
     String removeSaleFromSinglePrice(long itemId, long saleId);
-    List<PriceDto> setPriceSaleByCategory(long saleId, long category);
 }
