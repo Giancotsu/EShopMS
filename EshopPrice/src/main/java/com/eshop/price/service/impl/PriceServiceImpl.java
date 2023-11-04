@@ -120,6 +120,7 @@ public class PriceServiceImpl implements PriceService {
         return PriceMapper.entityToDto(priceRepository.save(PriceMapper.dtoToEntity(priceDto)));
     }
 
+    @Override
     public List<PriceDto> setPriceSaleByCategory(long saleId, long category){
         SaleEntity sale = saleRepository.findById(saleId).orElseThrow(()->new SaleNotFoundException("Sale could not be found"));
         List<PriceEntity> prices = priceRepository.findPriceByCategory(category).orElseThrow(()-> new PriceNotFoundException("Price could not be found"));
