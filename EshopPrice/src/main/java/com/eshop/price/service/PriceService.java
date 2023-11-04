@@ -5,6 +5,7 @@ import com.eshop.price.dtos.PriceDto;
 import com.eshop.price.dtos.SaleDto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface PriceService {
 
@@ -17,4 +18,5 @@ public interface PriceService {
     String removeSaleSingleByItemId(long itemId, SaleDto saleDto);
     String removeSale(long saleId);
     String removeSaleFromSinglePrice(long itemId, long saleId);
+    List<PriceDto> setPriceSaleByCategory(long saleId, long category);
 }
