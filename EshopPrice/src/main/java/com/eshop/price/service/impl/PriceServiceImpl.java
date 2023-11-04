@@ -4,9 +4,11 @@ import com.eshop.price.dtos.ItemClientRequestPriceCategory;
 import com.eshop.price.dtos.PriceDto;
 import com.eshop.price.dtos.SaleDto;
 import com.eshop.price.dtos.mapper.PriceMapper;
+import com.eshop.price.dtos.mapper.SaleMapper;
 import com.eshop.price.entities.IvaEntity;
 import com.eshop.price.entities.PriceEntity;
 import com.eshop.price.entities.SaleEntity;
+import com.eshop.price.exceptions.CategoryNotFoundException;
 import com.eshop.price.exceptions.PriceNotFoundException;
 import com.eshop.price.exceptions.SaleNotFoundException;
 import com.eshop.price.repositories.IvaRepository;
@@ -116,6 +118,20 @@ public class PriceServiceImpl implements PriceService {
         sales.add(saleDto);
         priceDto.setSales(sales);
         return PriceMapper.entityToDto(priceRepository.save(PriceMapper.dtoToEntity(priceDto)));
+    }
+
+    public List<PriceDto> setPriceSaleByCategory(long saleId, long category){
+        SaleEntity sale = saleRepository.findById(saleId).orElseThrow(()->new SaleNotFoundException("Sale could not be found"));
+        List<PriceEntity> prices = priceRepository.findPriceByCategory(category).orElseThrow(()-> new PriceNotFoundException("Price could not be found"));
+        if(prices.size()==0) throw new CategoryNotFoundException("Category not found");
+        List<PriceDto> priceDtos = prices.stream().map(PriceMapper::entityToDto).toList();
+        priceDtos.forEach(priceDto -> {
+            Set<SaleDto> sales = priceDto.getSales();
+            sales.add(SaleMapper.entityToDto(sale));
+            priceDto.setSales(sales);
+            priceRepository.save(PriceMapper.dtoToEntity(priceDto));
+        });
+        return priceDtos;
     }
 
     @Override
