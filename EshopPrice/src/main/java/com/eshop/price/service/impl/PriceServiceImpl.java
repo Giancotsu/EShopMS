@@ -122,6 +122,7 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public List<PriceDto> setPriceSaleByCategory(long saleId, long category){
+
         SaleEntity sale = saleRepository.findById(saleId).orElseThrow(()->new SaleNotFoundException("Sale could not be found"));
         List<PriceEntity> prices = priceRepository.findPriceByCategory(category).orElseThrow(()-> new PriceNotFoundException("Price could not be found"));
         if(prices.size()==0) throw new CategoryNotFoundException("Category not found");
@@ -134,6 +135,23 @@ public class PriceServiceImpl implements PriceService {
         });
         return priceDtos;
     }
+
+    @Override
+    public List<PriceDto> setPriceSaleAll(long saleId) {
+
+        SaleEntity sale = saleRepository.findById(saleId).orElseThrow(()->new SaleNotFoundException("Sale could not be found"));
+        List<PriceEntity> prices = priceRepository.findAll();
+        if(prices.size() == 0) throw new PriceNotFoundException("Price could not be found");
+        List<PriceDto> priceDtos = prices.stream().map(PriceMapper::entityToDto).toList();
+        priceDtos.forEach(priceDto -> {
+            Set<SaleDto> sales = priceDto.getSales();
+            sales.add(SaleMapper.entityToDto(sale));
+            priceDto.setSales(sales);
+            priceRepository.save(PriceMapper.dtoToEntity(priceDto));
+        });
+        return priceDtos;
+    }
+
 
     @Override
     public String removeSaleSingleByItemId(long itemId, SaleDto saleDto) {
