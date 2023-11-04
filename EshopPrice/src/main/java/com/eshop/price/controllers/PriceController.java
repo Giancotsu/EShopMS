@@ -3,7 +3,7 @@ package com.eshop.price.controllers;
 import com.eshop.price.dtos.ItemClientRequestPriceCategory;
 import com.eshop.price.dtos.PriceDto;
 import com.eshop.price.dtos.SaleDto;
-import com.eshop.price.entities.PriceEntity;
+import com.eshop.price.service.PriceService;
 import com.eshop.price.service.impl.PriceServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping(value = "/api/price")
 public class PriceController {
 
-    private final PriceServiceImpl priceService;
+    private final PriceService priceService;
 
     public PriceController(PriceServiceImpl priceService) {
         this.priceService = priceService;
