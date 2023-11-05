@@ -7,6 +7,7 @@ public class CategoryConverter {
 
     public static ItemCategoryEntity categoryDtoToEntity(CategoryDto categoryDto) {
         ItemCategoryEntity category = new ItemCategoryEntity();
+        category.setCategoryId(categoryDto.getId());
         category.setCategoryName(categoryDto.getCategoryName());
 
         return category;
@@ -14,6 +15,7 @@ public class CategoryConverter {
 
     public static CategoryDto categoryEntityToDto(ItemCategoryEntity itemCategory) {
         CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setId(itemCategory.getCategoryId());
         categoryDto.setCategoryName(itemCategory.getCategoryName());
 
         return categoryDto;
