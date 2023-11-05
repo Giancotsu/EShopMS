@@ -11,5 +11,6 @@ public class CategoryDto implements Serializable {
     @Serial
     private static final long serialVersionUID = 2283632856812370109L;
 
+    private long id;
     private String CategoryName;
 }
