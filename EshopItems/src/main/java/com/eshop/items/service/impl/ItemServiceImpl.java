@@ -168,6 +168,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Deprecated
     public ItemDto setItemCategory(Long itemId, ItemCategoryEntity category) {
 
         System.err.println("SET ITEM CATEGORY:");
@@ -184,6 +185,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Deprecated
     public ItemDto removeItemCategory(Long itemId, ItemCategoryEntity category) {
 
         System.err.println("REMOVE ITEM CATEGORY:");
