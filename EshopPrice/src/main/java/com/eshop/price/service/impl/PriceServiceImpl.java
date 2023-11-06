@@ -18,6 +18,7 @@ import com.eshop.price.service.PriceService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,7 +50,24 @@ public class PriceServiceImpl implements PriceService {
             return BigDecimal.valueOf(999999999);
         }
 
-        return priceEntity.getPrice();
+        BigDecimal price = priceEntity.getPrice();
+        float iva = (float) priceEntity.getIva().getValue() /100;
+
+        //adding iva      2000+(2000*0.22)
+        BigDecimal priceIva = price.add(price.multiply(BigDecimal.valueOf(iva)));
+        //System.err.println("item: "+priceEntity.getItemId()+", price: "+price);
+        //System.err.println("item: "+priceEntity.getItemId()+", price with iva: "+priceIva);
+
+        //subtracting sales
+        Set<SaleEntity> sales = priceEntity.getSales();
+
+        BigDecimal priceDiscounted = priceIva;
+        for(SaleEntity sale: sales){
+            float saleValue = (float) sale.getAmount() /100;
+            priceDiscounted = priceDiscounted.subtract(priceDiscounted.multiply(BigDecimal.valueOf(saleValue)));
+        }
+        //System.err.println("item: "+priceEntity.getItemId()+", price discounted: "+priceDiscounted);
+        return priceDiscounted.setScale(2, RoundingMode.CEILING);
     }
 
     public PriceDto getPriceDtoByItem(long itemId){
@@ -57,6 +75,7 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
+    @Deprecated
     public PriceDto setPriceToItem(long itemId, BigDecimal price) {
         if(itemId<=0){throw new RuntimeException("Price could not be set");}
         PriceDto priceDto;
