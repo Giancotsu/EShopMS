@@ -4,6 +4,8 @@ import com.eshop.items.dto.ItemDto;
 import com.eshop.items.dto.ItemResponse;
 import com.eshop.items.exceptions.ErrorObj;
 import com.eshop.items.entities.ItemCategoryEntity;
+import com.eshop.items.exceptions.PriceNotFoundException;
+import com.eshop.items.exceptions.PriceServiceNotAvailableException;
 import com.eshop.items.openfeign.PriceClient;
 import com.eshop.items.service.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -63,7 +65,7 @@ public class ItemController {
     ){
 
         ItemResponse itemResponse = itemService.getAllItems(pageNumber, pageSize);
-        itemResponse.getContent().forEach(itemDto -> itemDto.setPrice(priceClient.getItemPrice(itemDto.getId())));
+        if(!priceClient.isOn()) throw new PriceServiceNotAvailableException("Price service not available");
         return new ResponseEntity<>(itemResponse, HttpStatus.OK);
     }
 
@@ -89,7 +91,7 @@ public class ItemController {
     public ResponseEntity<List<ItemDto>> getItemsByCategory(@PathVariable("categoryName") String categoryName){
 
         List<ItemDto> items = itemService.getItemsByCategory(categoryName);
-        items.forEach(itemDto -> itemDto.setPrice(priceClient.getItemPrice(itemDto.getId())));
+        if(!priceClient.isOn()) throw new PriceServiceNotAvailableException("Price service not available");
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
@@ -120,7 +122,7 @@ public class ItemController {
     public ResponseEntity<ItemDto> getItemById(@PathVariable("id") long id){
 
         ItemDto itemDto = itemService.getItemById(id);
-        itemDto.setPrice(priceClient.getItemPrice(itemDto.getId()));
+        if(!priceClient.isOn()) throw new PriceServiceNotAvailableException("Price service not available");
         return new ResponseEntity<>(itemDto, HttpStatus.OK);
     }
 
