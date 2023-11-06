@@ -54,6 +54,7 @@ public class ItemServiceImpl implements ItemService {
 
         for(ItemEntity item: listOfItem){
             ItemDto itemDto = ItemConverter.itemToItemDto(item);
+            itemDto.setPrice(priceClient.getItemPrice(itemDto.getId()));
             itemsDto.add(itemDto);
         }
 
@@ -75,8 +76,10 @@ public class ItemServiceImpl implements ItemService {
         System.err.println("ITEM BY ID:");
 
         ItemEntity item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be found"));
+        ItemDto itemDto = ItemConverter.itemToItemDto(item);
+        itemDto.setPrice(priceClient.getItemPrice(itemDto.getId()));
 
-        return ItemConverter.itemToItemDto(item);
+        return itemDto;
     }
 
     @Override
@@ -88,8 +91,14 @@ public class ItemServiceImpl implements ItemService {
         String filter = "%" + categoryName.toUpperCase() + "%";
 
         List<ItemEntity> items = itemRepository.selItemsByCategory(filter);
+        List<ItemDto> itemDtos = new ArrayList<>();
+        items.forEach(item -> {
+            ItemDto itemDto = ItemConverter.itemToItemDto(item);
+            itemDto.setPrice(priceClient.getItemPrice(item.getItemId()));
+            itemDtos.add(itemDto);
+        });
 
-        return items.stream().map(ItemConverter::itemToItemDto).toList();
+        return itemDtos;
     }
 
     @Override
