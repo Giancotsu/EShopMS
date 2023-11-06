@@ -15,8 +15,8 @@ public class PriceDto {
     private long itemId;
     @JsonFormat(shape=JsonFormat.Shape.STRING)
     private BigDecimal price;
-    private Set<SaleDto> sales;
     private Set<Long> itemCategoriesId;
+    private Set<SaleDto> sales;
     @JsonManagedReference
     private IvaEntity iva;
 }
