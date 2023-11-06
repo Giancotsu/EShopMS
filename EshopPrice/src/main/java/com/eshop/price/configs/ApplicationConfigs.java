@@ -7,15 +7,14 @@ import org.springframework.stereotype.Component;
 //@ConfigurationProperties("application")
 public class ApplicationConfigs {
 
-    //@Value("${iva}")
-    private int iva;
+    //@Value("${x}")
+    private int x;
 
-    public int getIva() {
-        System.out.println(iva);
-        return iva;
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public void setIva(int iva) {
-        this.iva = iva;
+    public int getX() {
+        return x;
     }
 }
