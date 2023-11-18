@@ -20,9 +20,4 @@ public class HealthController {
     public ResponseEntity<Boolean> amIOn(){
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
-
-    @GetMapping(value = "x")
-    public ResponseEntity<Integer> getXValue(){
-        return new ResponseEntity<>(applicationConfigs.getX(), HttpStatus.OK);
-    }
 }
