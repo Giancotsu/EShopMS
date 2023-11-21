@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.math.BigDecimal;
 
-@FeignClient(name = "EshopItems", url = "localhost:9000")
+@FeignClient(name = "EshopItems")
 public interface ItemClient {
 
     @GetMapping(value = "/api/item/clear-cache/{itemId}")
