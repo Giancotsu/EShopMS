@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: esItems
+          uri: lb://ESHOPITEMS
+          predicates:
+            - Path=/api/item/**
+        - id: esItemsCategory
+          uri: lb://ESHOPITEMS
+          predicates:
+            - Path=/api/category/**
+        - id: esPrice
+          uri: lb://ESHOPPRICE
+          predicates:
+            - Path=/api/price/**
