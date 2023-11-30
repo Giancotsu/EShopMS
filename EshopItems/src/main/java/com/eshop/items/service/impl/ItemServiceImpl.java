@@ -66,7 +66,7 @@ public class ItemServiceImpl implements ItemService {
 
         for(ItemEntity item: listOfItem){
             ItemDto itemDto = ItemConverter.itemToItemDto(item);
-            itemDto.setPrice(priceClient.getItemPrice(itemDto.getId()));
+            itemDto.setPrice(this.getItemPrice(itemDto.getId()));
             itemsDto.add(itemDto);
         }
 
@@ -89,7 +89,7 @@ public class ItemServiceImpl implements ItemService {
 
         ItemEntity item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Item could not be found"));
         ItemDto itemDto = ItemConverter.itemToItemDto(item);
-        itemDto.setPrice(priceClient.getItemPrice(itemDto.getId()));
+        itemDto.setPrice(this.getItemPrice(itemDto.getId()));
 
         return itemDto;
     }
@@ -106,7 +106,7 @@ public class ItemServiceImpl implements ItemService {
         List<ItemDto> itemDtos = new ArrayList<>();
         items.forEach(item -> {
             ItemDto itemDto = ItemConverter.itemToItemDto(item);
-            itemDto.setPrice(priceClient.getItemPrice(item.getItemId()));
+            itemDto.setPrice(this.getItemPrice(item.getItemId()));
             itemDtos.add(itemDto);
         });
 
