@@ -10,14 +10,14 @@ import com.eshop.items.entities.ItemEntity;
 import com.eshop.items.openfeign.PriceClient;
 import com.eshop.items.repository.ItemRepository;
 import com.eshop.items.service.ItemService;
-import feign.FeignException;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.*;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -32,11 +32,23 @@ public class ItemServiceImpl implements ItemService {
     private final CacheManager cacheManager;
     private final ItemRepository itemRepository;
     private final PriceClient priceClient;
+    private final CircuitBreaker circuitBreaker;
 
-    public ItemServiceImpl(CacheManager cacheManager, ItemRepository itemRepository, PriceClient priceClient) {
+    public ItemServiceImpl(CacheManager cacheManager, ItemRepository itemRepository, PriceClient priceClient, CircuitBreakerFactory<?, ?> circuitBreakerFactory) {
         this.cacheManager = cacheManager;
         this.itemRepository = itemRepository;
         this.priceClient = priceClient;
+        this.circuitBreaker = circuitBreakerFactory.create("myCircuitBreaker");
+    }
+
+    private BigDecimal getItemPrice(Long id){
+        return circuitBreaker.run(() -> priceClient.getItemPrice(id),
+                throwable -> getItemPriceFallback());
+    }
+
+    private BigDecimal getItemPriceFallback(){
+        System.out.println("get item price fallback method");
+        return BigDecimal.valueOf(999999999);
     }
 
     @Override
