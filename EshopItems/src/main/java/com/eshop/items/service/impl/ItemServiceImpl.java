@@ -43,12 +43,12 @@ public class ItemServiceImpl implements ItemService {
 
     private BigDecimal getItemPrice(Long id){
         return circuitBreaker.run(() -> priceClient.getItemPrice(id),
-                throwable -> getItemPriceFallback());
+                throwable -> getItemPriceFallback(id));
     }
 
-    private BigDecimal getItemPriceFallback(){
+    private BigDecimal getItemPriceFallback(Long id){
         System.out.println("get item price fallback method");
-        return BigDecimal.valueOf(999999999);
+        return priceClient.getItemPrice(id);
     }
 
     @Override

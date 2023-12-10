@@ -1,0 +1,51 @@
+version: '3.3'
+
+networks:
+  rabbitntw:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.55.0.0/24
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: unless-stopped
+    container_name: rabbitmq
+    networks:
+      rabbitntw:
+        ipv4_address: 172.55.0.10
+    ports:
+      - target: 5672
+        published: 5672
+        protocol: tcp
+        mode: host
+      - target: 15672
+        published: 15672
+        protocol: tcp
+        mode: host
+    environment:
+      - RABBITMQ_DEFAULT_USER=giancotsu
+      - RABBITMQ_DEFAULT_PASS=root
+  zipkin:
+    image: openzipkin/zipkin
+    restart: unless-stopped
+    container_name: zipkin
+    networks:
+      rabbitntw:
+        ipv4_address: 172.55.0.15
+    ports:
+      - target: 9411
+        published: 9411
+        protocol: tcp
+        mode: host
+    environment:
+      - RABBIT_ADDRESSES=172.55.0.10
+      - STORAGE_TYPE=mem
+      - RABBIT_USER=giancotsu
+      - RABBIT_PASSWORD=root
+    depends_on:
+      - rabbitmq
+volumes:
+  rabbitmq-volume:
