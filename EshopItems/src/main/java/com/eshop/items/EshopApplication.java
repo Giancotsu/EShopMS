@@ -8,7 +8,6 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @PropertySource("classpath:application.properties")
-//@EnableDiscoveryClient
 @EnableFeignClients
 public class EshopApplication {
 

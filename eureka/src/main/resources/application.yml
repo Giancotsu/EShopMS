@@ -15,26 +15,12 @@ spring:
     name: Eureka
 
 # ==============================================================
-# = Eureka Parameters
+# = Config Server
 # ==============================================================
-eureka:
-  instance:
-    hostname: localhost
 
-    preferIpAddress: false
-  # ==============================================================
-  # = Server settings
-  # ==============================================================
-  server:
-    enableSelfPreservation: true
-    responseCacheUpdateIntervalMs: 60000
-    evictionIntervalTimerInMs: 30000
-    waitTimeInMsWhenSyncEmpty: 5
-  # ==============================================================
-  # = Client settings
-  # ==============================================================
-  client:
-    registerWithEureka: false
-    fetchRegistry: false
-    serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  config:
+    import: configserver:http://localhost:8888?fail-fast=true&max-attempts=15&max-interval=1500&multiplier=1.2&initial-interval=1100
+  cloud:
+    config:
+      name: EshopEureka
+      profile: conf
