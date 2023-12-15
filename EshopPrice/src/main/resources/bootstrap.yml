@@ -1,0 +1,42 @@
+# ==============================================================
+# = Eshop Price MicroService
+# ==============================================================
+server:
+  port: 9001
+
+application:
+  title: EshopPrice
+  version: 0.0.1
+
+spring:
+  application:
+    name: EshopPrice
+
+# ==============================================================
+# = Config Server
+# ==============================================================
+
+  cloud:
+    config:
+      name: EshopPrice
+      profile: conf
+      discovery:
+        enabled: true
+        service-id: EshopConfigServer
+      enabled: true
+
+# ==============================================================
+# = Eureka Properties
+# ==============================================================
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 60
+    leaseRenewalIntervalInSeconds: 15
+    instanceId: ${server.port}-${spring.application.name}
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    eureka-server-connect-timeout-seconds: 8
