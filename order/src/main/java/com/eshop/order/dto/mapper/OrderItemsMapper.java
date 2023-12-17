@@ -8,6 +8,7 @@ public class OrderItemsMapper {
     public static OrderItems dtoToEntity(OrderItemsDto orderItemsDto){
         OrderItems orderItems = new OrderItems();
         orderItems.setOrderItemsId(orderItemsDto.getOrderItemsId());
+        orderItems.setIsbn(orderItemsDto.getIsbn());
         orderItems.setItemName(orderItemsDto.getItemName());
         orderItems.setPrice(orderItemsDto.getPrice());
         orderItems.setQuantity(orderItemsDto.getQuantity());
@@ -19,6 +20,7 @@ public class OrderItemsMapper {
     public static OrderItemsDto entityToDto(OrderItems orderItems){
         OrderItemsDto orderItemsDto = new OrderItemsDto();
         orderItemsDto.setOrderItemsId(orderItems.getOrderItemsId());
+        orderItemsDto.setIsbn(orderItems.getIsbn());
         orderItemsDto.setItemName(orderItems.getItemName());
         orderItemsDto.setPrice(orderItems.getPrice());
         orderItemsDto.setQuantity(orderItems.getQuantity());

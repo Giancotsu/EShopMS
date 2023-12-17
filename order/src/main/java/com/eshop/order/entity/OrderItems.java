@@ -18,6 +18,7 @@ public class OrderItems {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long orderItemsId;
+    private String isbn;
     private String itemName;
     private BigDecimal price;
     private int quantity;
