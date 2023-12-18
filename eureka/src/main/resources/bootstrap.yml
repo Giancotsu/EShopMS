@@ -12,4 +12,4 @@ spring:
   cloud:
     config:
       name: EshopEureka
-      profile: peer1
+      profile: peer3
