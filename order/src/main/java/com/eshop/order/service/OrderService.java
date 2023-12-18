@@ -22,7 +22,7 @@ import java.util.UUID;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    //private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     public String placeOrder(OrderRequest orderRequest){
         OrderEntity order = new OrderEntity();
@@ -42,9 +42,9 @@ public class OrderService {
             cartList.add(cartItem);
         });
 
-        WebClient webClient = WebClient.create("http://localhost:9003");
-        CheckCartRequest[] result = webClient.post()
-                .uri("/inventory/cart-check")
+        //WebClient webClient = WebClient.create("http://ESHOPINVENTORY");
+        CheckCartRequest[] result = webClientBuilder.build().post()
+                .uri("http://ESHOPINVENTORY/inventory/cart-check")
                 .bodyValue(cartList)
                 .retrieve()
                 .bodyToMono(CheckCartRequest[].class)
