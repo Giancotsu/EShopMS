@@ -1,0 +1,3 @@
+jwt:
+  secret: MacwhU7YfiZf3m8xz9vWcIBzb9Bi9l
+  expiration: 86400

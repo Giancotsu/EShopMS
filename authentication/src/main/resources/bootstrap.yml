@@ -1,29 +1,22 @@
-# ==============================================================
-# = Eshop Items MicroService
-# ==============================================================
 server:
-  port: 9000
-
-application:
-  title: EshopItems
-  version: 0.0.1
+  port: 10999
 
 spring:
   application:
-    name: EshopItems
+    name: authentication-service
 
 # ==============================================================
 # = Config Server
 # ==============================================================
 
-  cloud:
-    config:
-      name: EshopItems
-      profile: conf
-      discovery:
-        enabled: true
-        service-id: EshopConfigServer
+cloud:
+  config:
+    name: EshopAuthentication
+    profile: conf
+    discovery:
       enabled: true
+      service-id: EshopConfigServer
+    enabled: true
 
 # ==============================================================
 # = Eureka Properties
