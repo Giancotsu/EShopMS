@@ -20,8 +20,8 @@ public class AuthService {
         UserValueObject registeredUser = restTemplate.postForObject("ESHOPUSER/users", request, UserValueObject.class);
 
         if(registeredUser != null){
-            String accessToken = jwtUtil.generate(registeredUser.getId(), registeredUser.getRole(), "ACCESS");
-            String refreshToken = jwtUtil.generate(registeredUser.getId(), registeredUser.getRole(), "REFRESH");
+            String accessToken = jwtUtil.generate(registeredUser.getUserId(), registeredUser.getRole(), "ACCESS");
+            String refreshToken = jwtUtil.generate(registeredUser.getUserId(), registeredUser.getRole(), "REFRESH");
 
             return new AuthResponse(accessToken, refreshToken);
         } else {
