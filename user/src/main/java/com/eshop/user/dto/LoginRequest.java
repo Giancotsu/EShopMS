@@ -1,15 +1,12 @@
-package com.eshop.user.entities;
+package com.eshop.user.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class UserValueObject {
+public class LoginRequest {
 
-    private String userId;
     private String email;
     private String password;
-    private String name;
 }

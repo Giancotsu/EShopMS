@@ -20,11 +20,11 @@ public class ItemDto implements Serializable {
 
     private long id;
     @NotNull(message = "required")
-    @Size(min=3, max = 50, message = "min 3, max 50")
+    @Size(min=2, max = 50, message = "min 3, max 50")
     @Schema(name = "name", description = "Item name")
     private String name;
     @NotNull(message = "required")
-    @Size(min=5, max = 200, message="min 5, max 200")
+    @Size(min=2, max = 200, message="min 5, max 200")
     @Schema(name = "details", description = "Item details")
     private String details;
     @NotNull(message = "required")

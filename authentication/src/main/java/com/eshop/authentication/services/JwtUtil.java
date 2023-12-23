@@ -50,8 +50,8 @@ public class JwtUtil {
         final Date exp = new Date(now.getTime() + expMillis);
 
         return  Jwts.builder()
-                .claims(claims)
                 .subject(claims.get("id"))
+                .claim("role", claims.get("role"))
                 .issuedAt(now)
                 .expiration(exp)
                 .signWith(key)

@@ -1,15 +1,13 @@
-
 # ==============================================================
 # = Eureka Server
 # ==============================================================
-spring:
-# ==============================================================
-# = Config Server
-# ==============================================================
 
-  config:
-    import: configserver:http://localhost:8888?fail-fast=true&max-attempts=15&max-interval=1500&multiplier=1.2&initial-interval=1100
+spring:
   cloud:
     config:
       name: EshopEureka
       profile: peer1
+      discovery:
+        enabled: true
+        service-id: EshopConfigServer
+      enabled: true
