@@ -14,13 +14,16 @@ public class CircuitBreakerConfiguration {
     @Bean
     public Customizer<Resilience4JCircuitBreakerFactory> myCustomizer() {
         return factory -> factory.configure(builder -> builder
-                .circuitBreakerConfig(CircuitBreakerConfig.custom().
-                        failureRateThreshold(50)
+                .circuitBreakerConfig(CircuitBreakerConfig.custom()
+                        .failureRateThreshold(50)
                         .slidingWindowSize(5)
-                        .waitDurationInOpenState(Duration.ofMillis(2000))
+                        .waitDurationInOpenState(Duration.ofMillis(5000))
                         .permittedNumberOfCallsInHalfOpenState(5)
                         .slowCallDurationThreshold(Duration.ofMillis(1000))
                         .slowCallRateThreshold(50.0F)
+                        .slidingWindowType(CircuitBreakerConfig.SlidingWindowType.COUNT_BASED)
+                        .slidingWindowSize(5)
+                        .automaticTransitionFromOpenToHalfOpenEnabled(true)
                         .build())
                 .timeLimiterConfig(TimeLimiterConfig.custom()
                         .timeoutDuration(Duration.ofSeconds(4))
