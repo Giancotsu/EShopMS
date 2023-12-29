@@ -35,5 +35,32 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/, http://localhost:8762/eureka/, http://localhost:8763/eureka/
+      #defaultZone: http://localhost:8761/eureka/, http://localhost:8762/eureka/, http://localhost:8763/eureka/
+      defaultZone: http://localhost:8761/eureka/
     eureka-server-connect-timeout-seconds: 8
+
+# ==============================================================
+# = METRICS
+# ==============================================================
+
+management:
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http.server:
+          requests: true
+  observations:
+    key-values:
+      application: auth-service
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+logging:
+  pattern:
+    level: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

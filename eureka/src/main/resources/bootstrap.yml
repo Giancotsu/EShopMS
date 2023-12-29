@@ -11,3 +11,29 @@ spring:
         enabled: true
         service-id: EshopConfigServer
       enabled: true
+
+# ==============================================================
+# = METRICS
+# ==============================================================
+
+management:
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http.server:
+          requests: true
+  observations:
+    key-values:
+      application: eureka
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: *
+
+
+logging:
+  pattern:
+    level: [${spring.application.name:},%X{traceId:-},%X{spanId:-}]
