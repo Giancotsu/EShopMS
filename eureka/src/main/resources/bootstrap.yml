@@ -31,9 +31,9 @@ management:
   endpoints:
     web:
       exposure:
-        include: *
+        include: "*"
 
 
 logging:
   pattern:
-    level: [${spring.application.name:},%X{traceId:-},%X{spanId:-}]
+    level: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
