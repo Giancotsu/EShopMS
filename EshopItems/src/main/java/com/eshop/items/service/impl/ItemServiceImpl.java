@@ -10,6 +10,7 @@ import com.eshop.items.entities.ItemEntity;
 import com.eshop.items.openfeign.PriceClient;
 import com.eshop.items.repository.ItemRepository;
 import com.eshop.items.service.ItemService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.*;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;

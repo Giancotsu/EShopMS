@@ -5,7 +5,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -13,6 +15,8 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ItemDto implements Serializable {
 
     @Serial
@@ -32,4 +36,11 @@ public class ItemDto implements Serializable {
     @Schema(name = "price", description = "Item price")
     private BigDecimal price;
     private Set<ItemCategoryEntity> categories;
+
+    public ItemDto(@NotNull(message = "required") String name, @NotNull(message = "required") String details, @NotNull(message = "required") BigDecimal price, Set<ItemCategoryEntity> categories) {
+        this.name = name;
+        this.details = details;
+        this.price = price;
+        this.categories = categories;
+    }
 }
